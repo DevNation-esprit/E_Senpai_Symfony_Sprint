@@ -9,12 +9,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class GetStartedController extends AbstractController
 {
     /**
-     * @Route("/get/started", name="get_started")
+     * @Route("/", name="get_started")
      */
-    public function index(): Response
+    public function getStarted(): Response
     {
-        return $this->render('get_started/index.html.twig', [
-            'controller_name' => 'GetStartedController',
-        ]);
+        return $this->render('get_started/getStarted.html.twig');
     }
 }

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="note", indexes={@ORM\Index(name="fk_idtest", columns={"id_test"}), @ORM\Index(name="fk_iduser", columns={"id_etudiant"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\NoteRepository")
  */
 class Note
 {
@@ -51,6 +52,47 @@ class Note
      * })
      */
     private $idEtudiant;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getNoteObtenue(): ?int
+    {
+        return $this->noteObtenue;
+    }
+
+    public function setNoteObtenue(int $noteObtenue): self
+    {
+        $this->noteObtenue = $noteObtenue;
+
+        return $this;
+    }
+
+    public function getIdTest(): ?Test
+    {
+        return $this->idTest;
+    }
+
+    public function setIdTest(?Test $idTest): self
+    {
+        $this->idTest = $idTest;
+
+        return $this;
+    }
+
+    public function getIdEtudiant(): ?User
+    {
+        return $this->idEtudiant;
+    }
+
+    public function setIdEtudiant(?User $idEtudiant): self
+    {
+        $this->idEtudiant = $idEtudiant;
+
+        return $this;
+    }
 
 
 }

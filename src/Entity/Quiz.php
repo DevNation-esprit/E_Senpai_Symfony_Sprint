@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="quiz", indexes={@ORM\Index(name="fk_idformateur_quiz", columns={"id_formateur"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\QuizRepository")
  */
 class Quiz
 {
@@ -37,6 +38,35 @@ class Quiz
      * })
      */
     private $idFormateur;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getSujet(): ?string
+    {
+        return $this->sujet;
+    }
+
+    public function setSujet(string $sujet): self
+    {
+        $this->sujet = $sujet;
+
+        return $this;
+    }
+
+    public function getIdFormateur(): ?User
+    {
+        return $this->idFormateur;
+    }
+
+    public function setIdFormateur(?User $idFormateur): self
+    {
+        $this->idFormateur = $idFormateur;
+
+        return $this;
+    }
 
 
 }

@@ -1,0 +1,40 @@
+
+{% block body %}
+    <h1>Liste Questions</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Designation</th>
+                <th>ReponseCorrecte</th>
+                <th>ReponseFausse1</th>
+                <th>ReponseFausse2</th>
+                <th>ReponseFausse3</th>
+                <th>Note</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for questionquiz in questionquizzes %}
+            <tr>
+                <td>{{ questionquiz.id }}</td>
+                <td>{{ questionquiz.designation }}</td>
+                <td>{{ questionquiz.reponseCorrecte }}</td>
+                <td>{{ questionquiz.reponseFausse1 }}</td>
+                <td>{{ questionquiz.reponseFausse2 }}</td>
+                <td>{{ questionquiz.reponseFausse3 }}</td>
+                <td>{{ questionquiz.note }}</td>
+                <td>
+                    <a href="{{ path('questionquiz_show', {'id': questionquiz.id}) }}">show</a>
+                    <a href="{{ path('questionquiz_edit', {'id': questionquiz.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

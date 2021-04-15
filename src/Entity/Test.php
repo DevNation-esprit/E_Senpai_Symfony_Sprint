@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="test", indexes={@ORM\Index(name="fk_formation", columns={"id_formation"}), @ORM\Index(name="fk_idformateur_test", columns={"id_formateur"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\TestRepository")
  */
 class Test
 {
@@ -68,6 +69,83 @@ class Test
      * })
      */
     private $idFormateur;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getSujet(): ?string
+    {
+        return $this->sujet;
+    }
+
+    public function setSujet(string $sujet): self
+    {
+        $this->sujet = $sujet;
+
+        return $this;
+    }
+
+    public function getNbEtudiantPasses(): ?int
+    {
+        return $this->nbEtudiantPasses;
+    }
+
+    public function setNbEtudiantPasses(int $nbEtudiantPasses): self
+    {
+        $this->nbEtudiantPasses = $nbEtudiantPasses;
+
+        return $this;
+    }
+
+    public function getNbEtudiantsAdmis(): ?int
+    {
+        return $this->nbEtudiantsAdmis;
+    }
+
+    public function setNbEtudiantsAdmis(int $nbEtudiantsAdmis): self
+    {
+        $this->nbEtudiantsAdmis = $nbEtudiantsAdmis;
+
+        return $this;
+    }
+
+    public function getDuree(): ?int
+    {
+        return $this->duree;
+    }
+
+    public function setDuree(int $duree): self
+    {
+        $this->duree = $duree;
+
+        return $this;
+    }
+
+    public function getIdFormation(): ?Formation
+    {
+        return $this->idFormation;
+    }
+
+    public function setIdFormation(?Formation $idFormation): self
+    {
+        $this->idFormation = $idFormation;
+
+        return $this;
+    }
+
+    public function getIdFormateur(): ?User
+    {
+        return $this->idFormateur;
+    }
+
+    public function setIdFormateur(?User $idFormateur): self
+    {
+        $this->idFormateur = $idFormateur;
+
+        return $this;
+    }
 
 
 }

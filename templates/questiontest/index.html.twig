@@ -1,0 +1,41 @@
+
+{% block body %}
+    <table class="table table-striped" style="margin-top: 25px">
+        <thead>
+        <tr>
+            <th colspan="4"><h1 class="text-center">Questions</h1></th>
+            <th><h5><a href="{{ path('questiontest_new',{'id':test.id}) }}"><i style="font-size: 24px;margin-right: 5px;" class="fa fa-plus-square" aria-hidden="true"></i>Ajouter Question</a></h5></th>
+        </tr>
+            <tr>
+                <th>Question posée</th>
+                <th>Reponse Correcte</th>
+                <th>Reponse Fausse1</th>
+                <th>Reponse Fausse2</th>
+                <th>Reponse Fausse3</th>
+                <th>Note</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for questiontest in questiontests %}
+            <tr>
+                <td>{{ questiontest.designation }}</td>
+                <td>{{ questiontest.reponseCorrecte }}</td>
+                <td>{{ questiontest.reponseFausse1 }}</td>
+                <td>{{ questiontest.reponseFausse2 }}</td>
+                <td>{{ questiontest.reponseFausse3 }}</td>
+                <td>{{ questiontest.note }}</td>
+                <td>
+                    <a href="{{ path('questiontest_show', {'id': questiontest.id}) }}"><i style="font-size:24px;" class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a href="{{ path('questiontest_edit', {'id': questiontest.id}) }}"><i style="font-size:24px;margin-left: 20px;" class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="formation", indexes={@ORM\Index(name="fk_idformateur", columns={"id_formateur"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\FormationRepository")
  */
 class Formation
 {
@@ -73,6 +76,83 @@ class Formation
     public function __construct()
     {
         $this->idEtudiant = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(string $titre): self
+    {
+        $this->titre = $titre;
+
+        return $this;
+    }
+
+    public function getNote(): ?int
+    {
+        return $this->note;
+    }
+
+    public function setNote(int $note): self
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getIdFormateur(): ?User
+    {
+        return $this->idFormateur;
+    }
+
+    public function setIdFormateur(?User $idFormateur): self
+    {
+        $this->idFormateur = $idFormateur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getIdEtudiant(): Collection
+    {
+        return $this->idEtudiant;
+    }
+
+    public function addIdEtudiant(User $idEtudiant): self
+    {
+        if (!$this->idEtudiant->contains($idEtudiant)) {
+            $this->idEtudiant[] = $idEtudiant;
+        }
+
+        return $this;
+    }
+
+    public function removeIdEtudiant(User $idEtudiant): self
+    {
+        $this->idEtudiant->removeElement($idEtudiant);
+
+        return $this;
     }
 
 }

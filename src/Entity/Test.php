@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Test
@@ -26,6 +27,7 @@ class Test
      * @var string
      *
      * @ORM\Column(name="sujet", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="veuillez renseigner le sujet du Test")
      */
     private $sujet;
 
@@ -47,6 +49,8 @@ class Test
      * @var int
      *
      * @ORM\Column(name="duree", type="integer", nullable=false)
+     * @Assert\NotBlank(message="veuillez entrer la durrée(min) du Test")
+     *@Assert\GreaterThan(value = 14,message = "durée doit etre supérieur 15")
      */
     private $duree;
 
@@ -80,7 +84,7 @@ class Test
         return $this->sujet;
     }
 
-    public function setSujet(string $sujet): self
+    public function setSujet(?string $sujet): self
     {
         $this->sujet = $sujet;
 
@@ -116,7 +120,7 @@ class Test
         return $this->duree;
     }
 
-    public function setDuree(int $duree): self
+    public function setDuree(?int $duree): self
     {
         $this->duree = $duree;
 

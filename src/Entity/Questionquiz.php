@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Questionquiz
@@ -26,6 +27,7 @@ class Questionquiz
      * @var string
      *
      * @ORM\Column(name="designation", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="veuillez renseigner la question ")
      */
     private $designation;
 
@@ -33,6 +35,7 @@ class Questionquiz
      * @var string
      *
      * @ORM\Column(name="reponse_correcte", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="veuillez renseigner la reponse correcte ")
      */
     private $reponseCorrecte;
 
@@ -40,6 +43,7 @@ class Questionquiz
      * @var string
      *
      * @ORM\Column(name="reponse_fausse1", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="veuillez renseigner la proposition 1")
      */
     private $reponseFausse1;
 
@@ -47,6 +51,7 @@ class Questionquiz
      * @var string
      *
      * @ORM\Column(name="reponse_fausse2", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="veuillez renseigner la proposition 2")
      */
     private $reponseFausse2;
 
@@ -54,6 +59,7 @@ class Questionquiz
      * @var string
      *
      * @ORM\Column(name="reponse_fausse3", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="veuillez renseigner la proposition 3")
      */
     private $reponseFausse3;
 
@@ -61,6 +67,8 @@ class Questionquiz
      * @var int
      *
      * @ORM\Column(name="note", type="integer", nullable=false)
+     *@Assert\NotBlank(message="veuillez entrer le nbre de points pour la question")
+     *@Assert\GreaterThan(value = -1,message = "point doit etre positif")
      */
     private $note;
 
@@ -84,7 +92,7 @@ class Questionquiz
         return $this->designation;
     }
 
-    public function setDesignation(string $designation): self
+    public function setDesignation(?string $designation): self
     {
         $this->designation = $designation;
 
@@ -96,7 +104,7 @@ class Questionquiz
         return $this->reponseCorrecte;
     }
 
-    public function setReponseCorrecte(string $reponseCorrecte): self
+    public function setReponseCorrecte(?string $reponseCorrecte): self
     {
         $this->reponseCorrecte = $reponseCorrecte;
 
@@ -108,7 +116,7 @@ class Questionquiz
         return $this->reponseFausse1;
     }
 
-    public function setReponseFausse1(string $reponseFausse1): self
+    public function setReponseFausse1(?string $reponseFausse1): self
     {
         $this->reponseFausse1 = $reponseFausse1;
 
@@ -120,7 +128,7 @@ class Questionquiz
         return $this->reponseFausse2;
     }
 
-    public function setReponseFausse2(string $reponseFausse2): self
+    public function setReponseFausse2(?string $reponseFausse2): self
     {
         $this->reponseFausse2 = $reponseFausse2;
 
@@ -132,7 +140,7 @@ class Questionquiz
         return $this->reponseFausse3;
     }
 
-    public function setReponseFausse3(string $reponseFausse3): self
+    public function setReponseFausse3(?string $reponseFausse3): self
     {
         $this->reponseFausse3 = $reponseFausse3;
 
@@ -144,7 +152,7 @@ class Questionquiz
         return $this->note;
     }
 
-    public function setNote(int $note): self
+    public function setNote(?int $note): self
     {
         $this->note = $note;
 

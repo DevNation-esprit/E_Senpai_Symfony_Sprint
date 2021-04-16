@@ -1,9 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Questiontest{% endblock %}
 
 {% block body %}
-    <h1>Questiontest</h1>
+    <h1 style="margin-top: 150px;">Question test</h1>
 
     <table class="table">
         <tbody>
@@ -40,7 +39,7 @@
 
     <a href="{{ path('test_show',{'id':questiontest.idTest.id}) }}">back to list</a>
 
-    <a href="{{ path('questiontest_edit', {'id': questiontest.id}) }}">edit</a>
+    <a href="{{ path('questiontest_edit', {'id': questiontest.id}) }}"><i style="font-size:24px;margin-left: 20px;" class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 
     {{ include('questiontest/_delete_form.html.twig') }}
 {% endblock %}

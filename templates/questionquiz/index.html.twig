@@ -1,24 +1,25 @@
 
 {% block body %}
-    <h1>Liste Questions</h1>
 
-    <table class="table">
+    <table class="table table-striped">
         <thead>
+        <tr>
+            <th colspan="4"><h1> Questions</h1></th>
+            <th><h5><a href="{{ path('questionquiz_new',{'id':quiz.id}) }}"><i style="font-size: 24px;margin-right: 5px;" class="fa fa-plus-square" aria-hidden="true"></i> Ajouter une Question </a></h5></th>
+        </tr>
             <tr>
-                <th>Id</th>
-                <th>Designation</th>
-                <th>ReponseCorrecte</th>
-                <th>ReponseFausse1</th>
-                <th>ReponseFausse2</th>
-                <th>ReponseFausse3</th>
-                <th>Note</th>
+                <th>Question Posée</th>
+                <th>Reponse Correcte</th>
+                <th>Reponse Fausse 1</th>
+                <th>Reponse Fausse 2</th>
+                <th>Reponse Fausse 3</th>
+                <th>Points</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for questionquiz in questionquizzes %}
             <tr>
-                <td>{{ questionquiz.id }}</td>
                 <td>{{ questionquiz.designation }}</td>
                 <td>{{ questionquiz.reponseCorrecte }}</td>
                 <td>{{ questionquiz.reponseFausse1 }}</td>
@@ -26,8 +27,8 @@
                 <td>{{ questionquiz.reponseFausse3 }}</td>
                 <td>{{ questionquiz.note }}</td>
                 <td>
-                    <a href="{{ path('questionquiz_show', {'id': questionquiz.id}) }}">show</a>
-                    <a href="{{ path('questionquiz_edit', {'id': questionquiz.id}) }}">edit</a>
+                    <a href="{{ path('questionquiz_show', {'id': questionquiz.id}) }}"><i style="font-size:24px;" class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a href="{{ path('questionquiz_edit', {'id': questionquiz.id}) }}"><i style="font-size:24px;margin-left: 20px;" class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                 </td>
             </tr>
         {% else %}

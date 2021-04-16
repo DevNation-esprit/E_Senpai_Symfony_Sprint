@@ -1,14 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Quiz index{% endblock %}
-
 {% block body %}
-    <h1>Quiz index</h1>
 
-    <table class="table">
+
+    <table class="table table-striped">
         <thead>
+        <tr>
+            <th colspan="1"><h1 style="margin-top: 150px">Quiz </h1></th>
+            <th><h5><a href="{{ path('quiz_new',{'id': app.user.id } )}}"><i  style="font-size: 24px" class="fa fa-plus-square " aria-hidden="true"></i>Ajouter nouveau Quiz</a></h5></th>
+        </tr>
             <tr>
-                <th>Id</th>
                 <th>Sujet</th>
                 <th>actions</th>
             </tr>
@@ -16,11 +17,10 @@
         <tbody>
         {% for quiz in quizzes %}
             <tr>
-                <td>{{ quiz.id }}</td>
                 <td>{{ quiz.sujet }}</td>
                 <td>
-                    <a href="{{ path('quiz_show', {'id': quiz.id}) }}">show</a>
-                    <a href="{{ path('quiz_edit', {'id': quiz.id}) }}">edit</a>
+                    <a href="{{ path('quiz_show', {'id': quiz.id}) }}"><i style="font-size:24px;" class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a href="{{ path('quiz_edit', {'id': quiz.id}) }}"> <i style="font-size:24px;margin-left: 20px;" class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +31,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('quiz_new',{'id': app.user.id } )}}">Create new</a>
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Quiz
@@ -26,6 +27,7 @@ class Quiz
      * @var string
      *
      * @ORM\Column(name="sujet", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="veuillez renseigner le sujet du quiz")
      */
     private $sujet;
 
@@ -49,7 +51,7 @@ class Quiz
         return $this->sujet;
     }
 
-    public function setSujet(string $sujet): self
+    public function setSujet(?string $sujet): self
     {
         $this->sujet = $sujet;
 

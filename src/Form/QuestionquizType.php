@@ -6,6 +6,7 @@ use App\Entity\Questionquiz;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class QuestionquizType extends AbstractType
 {
@@ -13,10 +14,10 @@ class QuestionquizType extends AbstractType
     {
         $builder
             ->add('designation')
-            ->add('reponseCorrecte')
-            ->add('reponseFausse1')
-            ->add('reponseFausse2')
-            ->add('reponseFausse3')
+            ->add('reponseCorrecte',TextareaType::class)
+            ->add('reponseFausse1',TextareaType::class)
+            ->add('reponseFausse2',TextareaType::class)
+            ->add('reponseFausse3',TextareaType::class)
             ->add('note')
         ;
     }

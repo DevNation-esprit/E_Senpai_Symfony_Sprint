@@ -48,7 +48,7 @@
                         <div class="row align-items-center">
                             <!-- Logo -->
                             <div class="col-xl-2 col-lg-2">
-                                
+                                {% if app.user %}<a href="/logout" class="submit-btn2">Déconnecter</a>{% endif %}
                             </div>
                             <div class="col-xl-9 col-lg-8">
                                 <div class="menu-wrapper  d-flex align-items-center">
@@ -57,19 +57,23 @@
                                         <nav> 
                                             <ul id="navigation">                                                                                          
                                                 <li><a href="/admin/dashboard">Accueil</a></li>
+                                                <li><a href="/user/">Gestion Users</a>
+                                                    <ul class="submenu">
+                                                        <li><a href="/user/">Utilisateurs</a></li>
+                                                        <li><a href="">Réclamations</a></li>
+                                                    </ul>
+                                                </li>
                                                 <li><a href="">Formations</a></li>
-                                                <li><a href="">Réclamations</a></li>
-                                                <li><a href="">Utilisateurs</a></li>
                                                 <li><a href="">Tests&Quizzes</a>
                                                     <ul class="submenu">
                                                         <li><a href="">Tests</a></li>
                                                         <li><a href="">Quizzes</a></li>
                                                     </ul>
                                                 </li>
-                                                
                                                 <li><a href="">Événements</a></li>
                                             </ul>
                                         </nav>
+                                        
                                     </div>
                                 </div>
                             </div> 
@@ -87,32 +91,7 @@
     {% block body %}
     <h1>Test</h1>
     {% endblock %}
-    <footer>
-        <!-- Footer Start-->
-        
-        <!-- footer-bottom area -->
-        <div class="footer-bottom-area">
-            <div class="container">
-                <div class="footer-border">
-                    <div class="row d-flex justify-content-between align-items-center">
-                        <div class="col-xl-9 col-lg-8">
-                            <div class="footer-copy-right">
-                                <p>Copyright ©2020 All rights reserved | E-Senpai</p>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4">
-                            <!-- Footer Social -->
-                            <div class="footer-social f-right">
-                                <a href="#"><i class="fab fa-youtube"></i></a>
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer End-->
-    </footer>
+    
     <!--? Search model Begin -->
     <div class="search-model-box">
         <div class="h-100 d-flex align-items-center justify-content-center">

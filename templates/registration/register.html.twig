@@ -26,17 +26,18 @@
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
+    <div>
+        <h1>S'inscrire</h1>
+        <br>
+        <a href="/login">S'authentifier</a><br>
+        <img src="img/img-01.png" alt="IMG">
+    </div>
 
-    <h1>Register</h1>
-
-    {{ form_start(registrationForm) }}
+    {{ form_start(registrationForm, {'attr':{'class':"login100-form validate-form"}}) }}
         {{ form_row(registrationForm.nom, {'attr':{'class':'input100'}}) }}
         {{ form_row(registrationForm.prenom, {'attr':{'class':'input100'}}) }}
         {{ form_row(registrationForm.sexe, {'attr':{'class':'input100'}}) }}
         {{ form_row(registrationForm.dateNaissance) }}
-        {{ form_row(registrationForm.login, {'attr':{'class':'input100'}}) }}
-        {{ form_row(registrationForm.role, {'attr':{'class':'input100'}}) }}
-        {{ form_row(registrationForm.status, {'attr':{'class':'input100'}}) }}
         {{ form_row(registrationForm.email, {'attr':{'class':'input100'}}) }}
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password',

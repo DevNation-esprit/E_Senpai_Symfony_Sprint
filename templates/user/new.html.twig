@@ -1,0 +1,14 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}New User{% endblock %}
+
+{% block body %}
+<br>
+<br>
+<br>
+    <h3>Ajouter Admin</h3>
+
+    {{ include('user/_form.html.twig', {'button_label': 'Ajouter'}) }}
+
+    <a href="{{ path('user_index') }}">Retour</a>
+{% endblock %}

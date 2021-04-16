@@ -84,7 +84,13 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('home'));
+        if($token->getUser()->getRole() == "Admin"){
+            return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
+        }
+        else{
+            return new RedirectResponse($this->urlGenerator->generate('home'));
+        }
+        
         
     }
 

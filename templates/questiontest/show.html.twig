@@ -2,36 +2,32 @@
 
 
 {% block body %}
-    <h1 style="margin-top: 150px;">Question test</h1>
+    <h1 class="text-center" style="margin-top: 150px;">Question test</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ questiontest.id }}</td>
-            </tr>
-            <tr>
-                <th>Designation</th>
+                <th>Question Posée</th>
                 <td>{{ questiontest.designation }}</td>
             </tr>
             <tr>
-                <th>ReponseCorrecte</th>
+                <th>Reponse Correcte</th>
                 <td>{{ questiontest.reponseCorrecte }}</td>
             </tr>
             <tr>
-                <th>ReponseFausse1</th>
+                <th>Reponse Fausse1</th>
                 <td>{{ questiontest.reponseFausse1 }}</td>
             </tr>
             <tr>
-                <th>ReponseFausse2</th>
+                <th>Reponse Fausse2</th>
                 <td>{{ questiontest.reponseFausse2 }}</td>
             </tr>
             <tr>
-                <th>ReponseFausse3</th>
+                <th>Reponse Fausse3</th>
                 <td>{{ questiontest.reponseFausse3 }}</td>
             </tr>
             <tr>
-                <th>Note</th>
+                <th>Points</th>
                 <td>{{ questiontest.note }}</td>
             </tr>
         </tbody>

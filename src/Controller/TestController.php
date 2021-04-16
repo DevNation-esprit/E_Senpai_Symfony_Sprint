@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use MercurySeries\FlashyBundle\FlashyNotifier ;
 
 /**
  * @Route("/test")
@@ -32,7 +33,7 @@ class TestController extends AbstractController
     /**
      * @Route("/new/{id}", name="test_new", methods={"GET","POST"})
      */
-    public function new(Request $request,$id): Response
+    public function new(Request $request,$id, FlashyNotifier $flashy): Response
     {
         $test = new Test();
         $form = $this->createForm(TestType::class, $test);
@@ -44,7 +45,7 @@ class TestController extends AbstractController
             $test->setIdFormateur($user) ;
             $entityManager->persist($test);
             $entityManager->flush();
-
+            $flashy->success('Test crée avec succès!');
             return $this->redirectToRoute('test_index',['id' => $test->getIdFormateur()->getId() ] );
         }
 
@@ -69,14 +70,14 @@ class TestController extends AbstractController
     /**
      * @Route("/{id}/edit", name="test_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Test $test): Response
+    public function edit(Request $request, Test $test, FlashyNotifier $flashy): Response
     {
         $form = $this->createForm(TestType::class, $test);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
+            $flashy->success('Test modifié avec succès!');
             return $this->redirectToRoute('test_index',['id' => $test->getIdFormateur()->getId() ] );
         }
 
@@ -89,14 +90,14 @@ class TestController extends AbstractController
     /**
      * @Route("/{id}", name="test_delete", methods={"POST"})
      */
-    public function delete(Request $request, Test $test): Response
+    public function delete(Request $request, Test $test, FlashyNotifier $flashy): Response
     {
         if ($this->isCsrfTokenValid('delete'.$test->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($test);
             $entityManager->flush();
         }
-
+        $flashy->success('Test supprimé avec succès!');
         return $this->redirectToRoute('test_index',['id' => $test->getIdFormateur()->getId() ] );
     }
 }

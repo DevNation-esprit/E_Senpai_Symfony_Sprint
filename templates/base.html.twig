@@ -25,6 +25,11 @@
   <link href="{{ asset('vendor/animate.css/animate.min.css') }}" rel="stylesheet">
   <link href="{{ asset('vendor/aos/aos.css') }}" rel="stylesheet">
 
+  <!-- mercuryseriesflashy bundle Files -->
+  <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+  <script src="//code.jquery.com/jquery.js"></script>
+  <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+
   <!-- Template Main CSS File -->
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
@@ -71,6 +76,8 @@
     </div>
   </header>
   <!-- End Header -->
+
+  {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
 
 <div class="container" style="margin-bottom: 350px;">
 {% block body %}

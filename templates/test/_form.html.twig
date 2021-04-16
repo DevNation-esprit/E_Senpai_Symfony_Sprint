@@ -7,7 +7,10 @@
 <div class="form-group">
     {{ form_label(form.sujet,"Sujet Test :") }}
     <div class="errors">
-        {{ form_errors(form.sujet) }}
+        {% if form_errors(form.sujet) is not empty %}
+          <span class="badge badge-pill badge-danger">Error : </span>
+          {{ form_errors(form.sujet) }}
+        {% endif %}
     </div>
     {{ form_widget(form.sujet, { 'attr': {'class': 'form-control'} }) }}
 </div>

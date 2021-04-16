@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <h1 style="margin-top: 150px" class="text-center">Espace Quiz & Test</h1>
+
+    {% for test in listTest %}
+        <div style="margin-bottom: 15px;" id="accordion">
+            <div class="card">
+                <div class="card-header">
+                    <a class="card-link" data-toggle="collapse" href="#demo">
+                        Test : {{ test.sujet }}
+                    </a>
+                </div>
+                <div id="demo" class="collapse hide" data-parent="#accordion">
+                    <div class="card-body">
+                        <span>Formation : </span> <span class="font-weight-bold">{{ test.idFormation.titre }}</span> <br>
+                        <span>Duree : </span> <span class="font-weight-bold">{{ test.duree}} min(s)</span> <br>
+                        <span>Nombre de Questions : </span><span class="font-weight-bold" > {{ test.questions|length }}</span>
+                        <p class="text-right font-weight-bold">Posted by {{ [test.idFormateur.nom, '  ',test.idFormateur.prenom] | join }}</p>
+                        <div class="form-group">
+                           <a href="#"> <button style="width: 25%;margin: auto" class="btn btn-dark btn-block">Passer</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% for quiz in listQuiz %}
+        <div style="margin-bottom: 15px;" id="accordion">
+            <div class="card">
+                <div class="card-header">
+                    <a class="card-link" data-toggle="collapse" href="#quiz">
+                        Quiz : {{ quiz.sujet }}
+                    </a>
+                </div>
+                <div id="quiz" class="collapse hide" data-parent="#accordion">
+                    <div class="card-body">
+                        <span>Nombre de Questions : </span><span class="font-weight-bold" > {{ quiz.questions|length }}</span>
+                        <p class="text-right font-weight-bold">Posted by {{ [quiz.idFormateur.nom, '  ',quiz.idFormateur.prenom] | join }}</p>
+                        <div class="form-group">
+                            <a href="{{ path('take_quiz',{'id':quiz.id}) }}"> <button style="width: 25%;margin: auto" class="btn btn-dark btn-block">Passer</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

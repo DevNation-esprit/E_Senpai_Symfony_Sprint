@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use MercurySeries\FlashyBundle\FlashyNotifier ;
 
 /**
  * @Route("/quiz")
@@ -31,7 +32,7 @@ class QuizController extends AbstractController
     /**
      * @Route("/new/{id}", name="quiz_new", methods={"GET","POST"})
      */
-    public function new(Request $request,$id): Response
+    public function new(Request $request,$id,FlashyNotifier $flashy): Response
     {
         $quiz = new Quiz();
         $form = $this->createForm(QuizType::class, $quiz);
@@ -43,7 +44,7 @@ class QuizController extends AbstractController
             $quiz->setIdFormateur($user) ;
             $entityManager->persist($quiz);
             $entityManager->flush();
-
+            $flashy->success('Quiz crée avec succes!');
             return $this->redirectToRoute('quiz_index', ['id' => $quiz->getIdFormateur()->getId() ] );
         }
 
@@ -68,14 +69,14 @@ class QuizController extends AbstractController
     /**
      * @Route("/{id}/edit", name="quiz_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Quiz $quiz): Response
+    public function edit(Request $request, Quiz $quiz,FlashyNotifier $flashy): Response
     {
         $form = $this->createForm(QuizType::class, $quiz);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
+            $flashy->success('Quiz modifié avec succes!');
             return $this->redirectToRoute('quiz_index', ['id' => $quiz->getIdFormateur()->getId() ] );
         }
 
@@ -88,14 +89,14 @@ class QuizController extends AbstractController
     /**
      * @Route("/{id}", name="quiz_delete", methods={"POST"})
      */
-    public function delete(Request $request, Quiz $quiz): Response
+    public function delete(Request $request, Quiz $quiz,FlashyNotifier $flashy): Response
     {
         if ($this->isCsrfTokenValid('delete'.$quiz->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($quiz);
             $entityManager->flush();
         }
-
+        $flashy->success('Quiz supprimé avec succes!');
         return $this->redirectToRoute('quiz_index', ['id' => $quiz->getIdFormateur()->getId() ] );
     }
 }

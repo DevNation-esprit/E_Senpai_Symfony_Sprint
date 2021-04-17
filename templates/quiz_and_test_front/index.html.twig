@@ -19,7 +19,7 @@
                         <span>Nombre de Questions : </span><span class="font-weight-bold" > {{ test.questions|length }}</span>
                         <p class="text-right font-weight-bold">Posted by {{ [test.idFormateur.nom, '  ',test.idFormateur.prenom] | join }}</p>
                         <div class="form-group">
-                           <a href="#"> <button style="width: 25%;margin: auto" class="btn btn-dark btn-block">Passer</button></a>
+                           <a href="{{ path('take_test',{'id':test.id}) }}"> <button style="width: 25%;margin: auto" class="btn btn-dark btn-block">Passer</button></a>
                         </div>
                     </div>
                 </div>

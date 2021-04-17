@@ -30,8 +30,15 @@
   <script src="//code.jquery.com/jquery.js"></script>
   <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
 
+
   <!-- Template Main CSS File -->
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+  <style>
+    .question{
+      margin-left: 50px;
+      margin-top: 8px;
+    }
+  </style>
 
   <!-- =======================================================
   * Template Name: Mentor - v2.2.1
@@ -63,8 +70,13 @@
               <ul class="dropdown-toggle"  data-toggle="dropdown">Quiz & Test</ul>
                 <span class="caret"></span></p>
               <ul class="dropdown-menu">
+                {% if (app.user.role | lower) == "formateur" %}
                 <li><a href="/quiz/{{ app.user.id }}">Quiz</a></li>
                 <li><a href="/test/{{ app.user.id }}">Test</a></li>
+                {% elseif (app.user.role | lower) == "etudiant" %}
+                  <li><a href="/quiz_front">Quiz</a></li>
+                  <li><a href="/quiz_front">Test</a></li>
+                {% endif %}
               </ul>
             </div></li>
           <li><a href="">Réclamations</a></li>

@@ -75,7 +75,7 @@ class Questionquiz
     /**
      * @var \Quiz
      *
-     * @ORM\ManyToOne(targetEntity="Quiz")
+     * @ORM\ManyToOne(targetEntity="Quiz", inversedBy="questions")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_quiz", referencedColumnName="id")
      * })

@@ -112,5 +112,15 @@ class Quiz
         return $this;
     }
 
+    public function getTotalPoint() :?int
+    {
+        $note = 0 ;
+        foreach($this->questions as $question)
+        {
+            $note = ($note + $question->getNote()) ;
+        }
+
+        return $note ;
+    }
 
 }

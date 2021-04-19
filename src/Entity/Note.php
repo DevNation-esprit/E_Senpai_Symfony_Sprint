@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Note
  *
- * @ORM\Table(name="note", indexes={@ORM\Index(name="fk_idtest", columns={"id_test"}), @ORM\Index(name="fk_iduser", columns={"id_etudiant"})})
+ * @ORM\Table(name="note", indexes={@ORM\Index(name="fk_idtest", columns={"id_test"}), @ORM\Index(name="fk_idetudiant", columns={"id_etudiant"})})
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="App\Repository\NoteRepository")
  */
@@ -18,7 +18,7 @@ class Note
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
@@ -32,8 +32,6 @@ class Note
     /**
      * @var \Test
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\OneToOne(targetEntity="Test")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_test", referencedColumnName="id")
@@ -44,8 +42,6 @@ class Note
     /**
      * @var \User
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\OneToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_etudiant", referencedColumnName="id")

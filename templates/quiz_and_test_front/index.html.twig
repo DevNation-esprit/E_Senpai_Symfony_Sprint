@@ -18,8 +18,12 @@
                         <span>Duree : </span> <span class="font-weight-bold">{{ test.duree}} min(s)</span> <br>
                         <span>Nombre de Questions : </span><span class="font-weight-bold" > {{ test.questions|length }}</span>
                         <p class="text-right font-weight-bold">Posted by {{ [test.idFormateur.nom, '  ',test.idFormateur.prenom] | join }}</p>
+                        <span>NB : Les certificats ne sont delivrés que si vous obtenez un pourcentage de minimum 70% </span>
                         <div class="form-group">
-                           <a href="{{ path('take_test',{'id':test.id}) }}"> <button style="width: 25%;margin: auto" class="btn btn-dark btn-block">Passer</button></a>
+                            <form action="{{ path('take_test',{'id':test.id}) }}" method="post">
+                                <input type="text" name="user" value="{{ app.user.id }}" hidden>
+                                <button style="width: 25%;margin: auto" class="btn btn-dark btn-block">Passer</button>
+                            </form>
                         </div>
                     </div>
                 </div>

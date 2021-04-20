@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Note;
 use App\Entity\Test;
 use App\Entity\User;
 use App\Entity\Questiontest ;
@@ -14,6 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use MercurySeries\FlashyBundle\FlashyNotifier ;
+use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+use Symfony\UX\Chartjs\Model\Chart;
 
 /**
  * @Route("/test")
@@ -99,5 +102,41 @@ class TestController extends AbstractController
         }
         $flashy->success('Test supprimé avec succès!');
         return $this->redirectToRoute('test_index',['id' => $test->getIdFormateur()->getId() ] );
+    }
+
+    /**
+     * @Route("/notes/{id}", name="test_note", methods={"GET"})
+     */
+    public function showNote($id, ChartBuilderInterface $chartBuilder): Response
+    {
+        $test = $this->getDoctrine()->getRepository(Test::class)->find($id) ;
+        $note = $this->getDoctrine()->getRepository(Note::class)
+            ->findBy(array('idTest'=>$id)) ;
+        $labels = [];
+        $datasets = [];
+        foreach($note as $n){
+            $labels[] = $n->getIdEtudiant()->getNom() .' '.$n->getIdEtudiant()->getPrenom() ;
+            $datasets[] = ($n->getNoteObtenue()/ $test->getTotalPoint())*100 ;
+        }
+
+        $chart = $chartBuilder->createChart(Chart::TYPE_BAR);
+        $chart->setData([
+            'labels' => $labels,
+            'datasets' => [
+                [
+                    'label' => 'Stat Notes',
+                    'backgroundColor' => '#D75404',
+                    'borderColor' => 'rgb(255, 99, 132)',
+                    'data' => $datasets,
+
+                ]
+            ],
+        ]);
+
+        return $this->render('test/notes.html.twig', [
+            'test' => $test,
+            'notes' => $note,
+            'chart' => $chart
+        ]);
     }
 }

@@ -112,6 +112,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/phenx/php-svg-lib" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phenx/php-font-lib" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dompdf/dompdf" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/webpack-encore-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/ux-chartjs" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

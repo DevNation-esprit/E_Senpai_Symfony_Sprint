@@ -7,8 +7,20 @@
 <br>
 <br>
     <h3>Ajouter Admin</h3>
-
-    {{ include('user/_form.html.twig', {'button_label': 'Ajouter'}) }}
-
-    <a href="{{ path('user_index') }}">Retour</a>
+    <div class="col-lg-8">
+    {{ form_start(form) }}
+        {{ form_row(form.nom) }}
+        {{ form_row(form.prenom) }}
+        {{ form_row(form.dateNaissance) }}
+        <br>
+        {{ form_row(form.sexe) }}
+        <br>
+        {{ form_row(form.email) }}
+        {{ form_row(form.password) }}
+        {{ form_row(form.biography) }}
+        <button class="btn">{{ button_label|default('Ajouter') }}</button>
+    {{ form_end(form) }}
+    </div>
+    <br>
+    <a href="{{ path('user_index') }}"><font color="blue">Retour</font></a>
 {% endblock %}

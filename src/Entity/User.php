@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -28,6 +29,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Nom est requis")
      */
     private $nom;
 
@@ -35,6 +37,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="prenom", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Prénom est requis")
      */
     private $prenom;
 
@@ -42,6 +45,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="date_naissance", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="DateNaissance est requis")
      */
     private $dateNaissance;
 
@@ -56,6 +60,8 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="E-mail est requis")
+     * @Assert\Email(message="Cet E-mail n'est pas valide")
      */
     private $email;
 

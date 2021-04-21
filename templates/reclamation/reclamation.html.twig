@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos Réclamations !{% endblock %}
+
+{% block body %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <h4>Vos réclamations</h4>
+    <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Statut</th>
+                <th>Sujet</th>
+                <th>Contenu</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclamation in reclamations %}
+            <tr>
+                <td>{{ reclamation.statut }}</td>
+                <td>{{ reclamation.sujet }}</td>
+                <td>{{ reclamation.contenu }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="14">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <a href="{{ path('add_reclamation', {'id': app.user.id}) }}" class="get-started-btn">Envoyer Réclamation</a>
+    <br>
+
+{% endblock %}

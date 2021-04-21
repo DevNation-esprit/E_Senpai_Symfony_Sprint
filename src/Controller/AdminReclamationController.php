@@ -30,12 +30,25 @@ class AdminReclamationController extends AbstractController
      * @Route("/admin/reclamation/{id}/reponse/{idu}", name="admin_reclamation_reponse")
      * @Entity("user", expr="repository.find(idu)")
      */
-    public function repoReclamation(Reclamation $reclamation, User $user, Request $request): Response
+    public function repoReclamation(Reclamation $reclamation, User $user, Request $request, \Swift_Mailer $mailer): Response
     {
         $form = $this->createForm(RepondreReclamationType::class);
         $form->handleRequest($request);
+        $receiver = $this->getDoctrine()
+        ->getRepository(User::class)
+        ->findBy(array('id' => $reclamation->getIdUser()->getId()));
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $rep = $form->getData();
+
+            $message = (new \Swift_Message('Réponse Réclamation'))
+                        ->setFrom('esenpai.devnation@gmail.com')
+                        ->setTo($receiver[0]->getEmail())
+                        ->setBody($rep['reponse']);
+            
+            $mailer->send($message);
+
             $reclamation->setStatut("Résolue");
             $reclamation->setAdminTrait($user->getId());
             $entityManager = $this->getDoctrine()->getManager();

@@ -87,7 +87,7 @@ class Reclamation
         return $this->contenu;
     }
 
-    public function getIdUser(): ?int
+    public function getIdUser(): ?User
     {
         return $this->idUserRec;
     }

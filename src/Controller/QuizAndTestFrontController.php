@@ -27,14 +27,23 @@ class QuizAndTestFrontController extends AbstractController
     /**
      * @Route("/", name="quiz_and_test_front")
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $search = "" ;
         $quizzes = $this->getDoctrine()->getRepository(Quiz::class)->findAll() ;
         $tests = $this->getDoctrine()->getRepository(Test::class)->findAll() ;
+
+        if($request->request->get('search'))
+        {
+            $search = trim($request->request->get('search')," ");
+            $tests = $this->getDoctrine()->getRepository(Test::class)->rechercherTestFront($search);
+            $quizzes = $this->getDoctrine()->getRepository(Quiz::class)->rechercherQuizFront($search) ;
+        }
 
         return $this->render('quiz_and_test_front/index.html.twig', [
             'listQuiz' => $quizzes ,
             'listTest' => $tests ,
+            'search' => $search
         ]);
     }
 

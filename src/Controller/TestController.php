@@ -24,12 +24,20 @@ use Symfony\UX\Chartjs\Model\Chart;
 class TestController extends AbstractController
 {
     /**
-     * @Route("/{id}", name="test_index", methods={"GET"})
+     * @Route("/{id}", name="test_index", methods={"GET","POST"})
      */
-    public function index(TestRepository $testRepository,$id): Response
+    public function index(Request $request,TestRepository $testRepository,$id): Response
     {
+        $search="" ;
+        $test = $testRepository->findBy(array('idFormateur'=> $id));
+        if($request->request->get('search'))
+        {
+            $search = trim($request->request->get('search')," ");
+            $test = $testRepository->rechercherTest($search,$id) ;
+        }
         return $this->render('test/index.html.twig', [
-            'tests' => $testRepository->findBy(array('idFormateur'=> $id)),
+            'tests' => $test ,
+            'search' => $search
         ]);
     }
 
@@ -59,14 +67,24 @@ class TestController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id}", name="test_show", methods={"GET"})
+     * @Route("/show/{id}", name="test_show", methods={"GET","POST"})
      */
-    public function show(Test $test): Response
+    public function show(Request $request, Test $test): Response
     {
+        $questions = $this->getDoctrine()->getRepository(QuestionTest::class)
+            ->findBy(array('idTest' => $test->getId()));
+        $search = "";
+        if ($request->request->get('search')) {
+            $search = trim($request->request->get('search')," ");
+            $idt = $test->getId() ;
+            $questions = $this->getDoctrine()->getRepository(Questiontest::class)
+                ->searchQuestion($search,$idt) ;
+        }
+
         return $this->render('test/show.html.twig', [
             'test' => $test,
-            'questiontests' => $this->getDoctrine()->getRepository(QuestionTest::class)
-                                ->findBy(array('idTest'=> $test->getId()))
+            'questiontests' => $questions,
+            'search' => $search
         ]);
     }
 

@@ -1,5 +1,15 @@
 
 {% block body %}
+    <form style="margin-top: 25px" action="{{ path('test_show',{'id':test.id}) }}" method="post">
+        <div class="input-group " style="width: 70%;margin: auto">
+            <input type="text" class="form-control" placeholder="rechercher ..." id="search" name="search" value="{{ search }} ">
+            <div class="input-group-append" style="background-color: #D75404">
+                <span class="input-group-text" style="height: 36px;background-color: #D75404">
+                     <button style="border: none;color: white;background-color: #D75404">{{ button_label|default('Rechercher') }}</button>
+                </span>
+            </div>
+        </div>
+    </form>
     <table class="table table-striped" style="margin-top: 25px">
         <thead>
         <tr>

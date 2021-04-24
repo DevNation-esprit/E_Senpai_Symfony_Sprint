@@ -20,12 +20,21 @@ use MercurySeries\FlashyBundle\FlashyNotifier ;
 class QuizController extends AbstractController
 {
     /**
-     * @Route("/{id}", name="quiz_index", methods={"GET"})
+     * @Route("/{id}", name="quiz_index", methods={"GET","POST"})
      */
-    public function index(QuizRepository $quizRepository,$id): Response
+    public function index(Request $request, QuizRepository $quizRepository,$id): Response
     {
+        $search = "" ;
+        $quiz = $quizRepository->findBy(array('idFormateur'=> $id)) ;
+        if($request->request->get('search')) {
+            $search = trim($request->request->get('search'), " ");
+            $quiz = $this->getDoctrine()->getRepository(Quiz::class)
+                          ->rechercherQuiz($search,$id) ;
+
+        }
         return $this->render('quiz/index.html.twig', [
-            'quizzes' => $quizRepository->findBy(array('idFormateur'=> $id)),
+            'quizzes' => $quiz,
+            'search' => $search
         ]);
     }
 
@@ -55,14 +64,23 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id}", name="quiz_show", methods={"GET"})
+     * @Route("/show/{id}", name="quiz_show", methods={"GET","POST"})
      */
-    public function show(Quiz $quiz,$id): Response
+    public function show(Request $request,Quiz $quiz,$id): Response
     {
+        $search = "" ;
+        $questions = $this->getDoctrine()->getRepository(Questionquiz::class)
+            ->findBy(array('idQuiz'=> $quiz->getId())) ;
+        if ($request->request->get('search')) {
+            $search = trim($request->request->get('search'), " ");
+            $idq = $quiz->getId();
+            $questions = $this->getDoctrine()->getRepository(Questionquiz::class)
+                ->searchQuestion($search,$idq) ;
+        }
         return $this->render('quiz/show.html.twig', [
             'quiz' => $this->getDoctrine()->getRepository(Quiz::class)->find($id),
-            'questionquizzes' => $this->getDoctrine()->getRepository(Questionquiz::class)
-                ->findBy(array('idQuiz'=> $quiz->getId()))
+            'questionquizzes' => $questions,
+            'search' => $search
         ]);
     }
 

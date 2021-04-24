@@ -19,6 +19,24 @@ class QuestionquizRepository extends ServiceEntityRepository
         parent::__construct($registry, Questionquiz::class);
     }
 
+    public function searchQuestion(string $search,int $idt): array
+    {
+        $entityManager = $this->getEntityManager() ;
+        $queryBuilder = $entityManager->createQueryBuilder();
+
+        $queryBuilder->select('q')
+            ->from(Questionquiz::class, 'q')
+            ->where('q.idQuiz = :idt')
+            ->andWhere('q.designation like :search or q.note like :search or q.reponseCorrecte like :search
+             or q.reponseFausse1 like :search or q.reponseFausse2 like :search or q.reponseFausse3 like :search')
+            ->setParameter('idt', $idt)
+            ->setParameter('search','%'.$search.'%') ;
+
+        $query = $queryBuilder->getQuery();
+
+        return $query->execute();
+    }
+
     // /**
     //  * @return Questionquiz[] Returns an array of Questionquiz objects
     //  */

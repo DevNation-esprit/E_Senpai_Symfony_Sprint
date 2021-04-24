@@ -3,6 +3,16 @@
 
 {% block body %}
     <h1 style="margin-top: 150px" class="text-center">Espace Quiz & Test</h1>
+    <form action="{{ path('quiz_and_test_front') }}" method="post">
+        <div class="input-group " style="width: 60%;margin: auto;margin-bottom: 15px;">
+            <input type="text" class="form-control" placeholder="rechercher ..." id="search" name="search" value="{{ search }}">
+            <div class="input-group-append" style="background-color: #D75404">
+                <span class="input-group-text" style="height: 36px;background-color: #D75404">
+                     <button style="border: none;color: white;background-color: #D75404">{{ button_label|default('Rechercher') }}</button>
+                </span>
+            </div>
+        </div>
+    </form>
 
     {% for test in listTest %}
         <div style="margin-bottom: 15px;" id="accordion">

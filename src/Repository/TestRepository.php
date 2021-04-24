@@ -19,6 +19,34 @@ class TestRepository extends ServiceEntityRepository
         parent::__construct($registry, Test::class);
     }
 
+    public function rechercherTest(string $search,int $idf): array
+    {
+
+        $qb = $this->createQueryBuilder('t')
+            ->where('t.idFormateur = :idf')
+            ->andWhere('t.sujet like :search or t.duree like :search or t.nbEtudiantPasses like :search or t.nbEtudiantsAdmis like :search')
+            ->setParameter('idf', $idf)
+            ->setParameter('search','%'.$search.'%') ;
+
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
+    }
+
+    public function rechercherTestFront(string $search): array
+    {
+
+        $qb = $this->createQueryBuilder('t')
+            ->andWhere('t.sujet like :search or t.duree like :search ')
+            ->setParameter('search','%'.$search.'%') ;
+
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
+    }
+
     // /**
     //  * @return Test[] Returns an array of Test objects
     //  */

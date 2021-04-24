@@ -19,6 +19,32 @@ class QuizRepository extends ServiceEntityRepository
         parent::__construct($registry, Quiz::class);
     }
 
+    public function rechercherQuiz(string $search,int $idf): array
+    {
+
+        $qb = $this->createQueryBuilder('q')
+            ->where('q.idFormateur = :idf')
+            ->andWhere('q.sujet like :search')
+            ->setParameter('idf', $idf)
+            ->setParameter('search','%'.$search.'%') ;
+
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
+    }
+
+    public function rechercherQuizFront(string $search): array
+    {
+        $qb = $this->createQueryBuilder('q')
+            ->andWhere('q.sujet like :search')
+            ->setParameter('search','%'.$search.'%') ;
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
+    }
+
     // /**
     //  * @return Quiz[] Returns an array of Quiz objects
     //  */

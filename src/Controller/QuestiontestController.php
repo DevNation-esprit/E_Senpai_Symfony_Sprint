@@ -20,7 +20,7 @@ class QuestiontestController extends AbstractController
     /**
      * @Route("/", name="questiontest_index", methods={"GET"})
      */
-    public function index(QuestiontestRepository $questiontestRepository): Response
+    public function index( QuestiontestRepository $questiontestRepository): Response
     {
         return $this->render('questiontest/index.html.twig', [
             'questiontests' => $questiontestRepository->findAll(),

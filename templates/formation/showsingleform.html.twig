@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tous Les Formations{% endblock %}
+
+{% block body %}
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs" data-aos="fade-in">
+    <div class="container">
+        <h2>Formation du {{ formation.titre }}</h2>
+        <p>Bienvenue a nôtre formation </p>
+    </div>
+</div><!-- End Breadcrumbs -->
+
+<!-- ======= Cource Details Section ======= -->
+<section id="course-details" class="course-details">
+    <div class="container" data-aos="fade-up">
+        <div class="row">
+            <div class="col-lg-8">
+
+                <h3>Formation du {{ formation.titre }}</h3>
+                <p>
+                    Formation du {{ formation.description}} </p>
+            </div>
+            <div class="col-lg-4">
+
+                <div class="course-info d-flex justify-content-between align-items-center">
+                    <h5>Formateur</h5>
+                    <p><a href="#">{{ user.prenom }}</a></p>
+                </div>
+
+                <div class="course-info d-flex justify-content-between align-items-center">
+                    <h5>Frais de cours</h5>
+                    <p>Gratuit</p>
+                </div>
+
+                <div class="course-info d-flex justify-content-between align-items-center">
+                    <h5>Note</h5>
+                    <p>{{ formation.note }}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section><!-- End Cource Details Section -->
+
+<!-- ======= Cource Details Tabs Section ======= -->
+<section id="cource-details-tabs" class="cource-details-tabs">
+    <div class="mytabs" >
+        {% for slide in slides %}
+            {% if slide.textSlide is empty and slide.videoSlide is empty %}
+                <input type="radio" id="{{slide.id}}" name="mytabs" checked="checked">
+                <label for="{{slide.id}}">{{slide.imageSlide}}</label>
+                <div class="tab">
+                    {{ include('formation/image.html.twig') }}
+                </div>
+            {% elseif slide.imageSlide is empty and slide.videoSlide is empty %}
+                <input type="radio" id="{{slide.id}}" name="mytabs" checked="checked">
+                <label for="{{slide.id}}">{{slide.textSlide}}</label>
+                <div class="tab">
+                    {{ include('formation/pdf.html.twig') }}
+                </div>
+            {% else %}
+                <input type="radio" id="{{slide.id}}" name="mytabs" checked="checked">
+                <label for="{{slide.id}}">{{slide.videoSlide}}</label>
+                <div class="tab">
+                    {{ include('formation/video.html.twig') }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</section><!-- End Cource Details Tabs Section -->
+{% endblock %}

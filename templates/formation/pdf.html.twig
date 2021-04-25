@@ -1,0 +1,10 @@
+<form method="post" action="{{ path('formation_showslide', {'id': slide.id}) }}" >
+    <input type="hidden" name="_token" value="{{ csrf_token('showslide' ~ slide.id) }}">
+    <br>
+    <div align="center">
+        <h1 style="color: #8A2C02; font-weight: bold; " >{{ slide.textSlide}}</h1>
+
+        <embed  src="{{ asset('img/formcontenu/' ~ slide.textSlide) }}" width=1000 height=800 type='application/pdf'/>
+    </div>
+
+</form>

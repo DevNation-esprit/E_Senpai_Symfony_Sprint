@@ -23,10 +23,13 @@
   <link href={{ asset("vendor/owl.carousel/assets/owl.carousel.min.css") }} rel="stylesheet">
   <link href={{ asset("vendor/animate.css/animate.min.css") }} rel="stylesheet">
   <link href={{ asset("vendor/aos/aos.css") }} rel="stylesheet">
-
+  <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
   <!-- Template Main CSS File -->
   <link href={{ asset("css/style.css") }} rel="stylesheet">
-
+  <!-- mercuryseriesflashy bundle Files -->
+  <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+  <script src="//code.jquery.com/jquery.js"></script>
+  <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
   <!-- =======================================================
   * Template Name: Mentor - v2.2.1
   * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
@@ -49,7 +52,11 @@
         <ul>
           <li><a href="/home">Accueil</a></li>
           <li><a href="/profil">Profil</a></li>
+          {% if app.user.role == 'Formateur' %}
           <li><a href="/formation/accueilForm">Formations</a></li>
+            {% else %}
+              <li><a href="/formation/accueilFormEtudiant">Formations</a></li>
+          {% endif %}
           <li><a href="">Discussions</a></li>
           <li><a href="">Blog</a></li>
           <li><a href="">Evenements</a></li>
@@ -66,7 +73,9 @@
   <!-- End Header -->
 
 
+  {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
 {% block body %}
+
 <h4>Error Loading Page</h4>
 {% endblock %}
 

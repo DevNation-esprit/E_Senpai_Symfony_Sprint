@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Abonnement;
+use App\Entity\Formation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -47,4 +48,12 @@ class AbonnementRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function countabon(Formation $formation)
+    {
+        return $this->createQueryBuilder('fc')
+            ->where('fc.idFormation = :formation')
+            ->select('count(fc.idFormation)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

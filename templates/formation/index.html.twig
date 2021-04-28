@@ -5,7 +5,7 @@
 {% block body %}
 <div class="breadcrumbs" data-aos="fade-in">
     <div class="container">
-    <h1>Formations</h1>
+    <h1>Mes formations</h1>
     </div></div>
     <table class="table">
         <thead>
@@ -24,11 +24,12 @@
                 <td >{{ formation.titre }}</td>
                 <td >{{ formation.note }}</td>
                 <td class="desc" >{{ formation.description }}</td>
-                <td width="250px">
+                <td width="200px">
 
-                    <a class="get-started-btn" href="{{ path('formation_showsingleform', {'id': formation.id}) }}">show</a>
-                    <a class="get-started-btn" href="{{ path('formation_edit', {'id': formation.id}) }}">edit</a>
+                    <a class="get-buton-tab" href="{{ path('formation_showsingleform', {'id': formation.id}) }}">show</a>
+                    <a class="get-buton-tab" href="{{ path('formation_edit', {'id': formation.id}) }}">edit</a>
                     {{ include('formation/_delete_form.html.twig') }}
+
 
 
                 </td>

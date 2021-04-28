@@ -12,10 +12,9 @@
     <section id="trainers" class="trainers">
         <div class="container" data-aos="fade-up">
 
-            <div class="row" data-aos="zoom-in" data-aos-delay="100">
+            <div class="row" data-aos="zoom-in" data-aos-delay="100"  style="margin-left: 300px;">
                 <div class="col-lg-4 col-md-6 d-flex align-items-stretch" onclick="location.href='/formation/indexform'" style="cursor: pointer;">
                     <div class="member">
-               {#         src="{{asset('img/memories/section_tittle_flowre.png' )}}"#}
 
                         <img src="{{asset('img/touslesforms.jpg')}}" class="img-fluid" alt="">
                         <div class="member-content">
@@ -33,7 +32,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" onclick="location.href='/formation/indexmesform/'+{{app.user.id}}; " style="cursor: pointer;">
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" onclick="location.href='/formation/indexmesformEtudiant/'+{{app.user.id}};" style="cursor: pointer;">
                     <div class="member">
                         <img src="{{asset('img/mesforms.jpg')}}" class="img-fluid" alt="">
                         <div class="member-content">
@@ -45,24 +44,6 @@
                             </p>
                             <div class="social">
                                 <a href=""><i class="icofont-list"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" onclick="location.href='/formation/new/'+{{app.user.id}};" style="cursor: pointer;" >
-                    <div class="member">
-                        <img src="{{asset('img/ajoutform.jfif')}}" class="img-fluid" alt="">
-                        <div class="member-content">
-                            <h4>AJOUTER FORMATION</h4>
-                            <span>Créer une nouvelle formation</span>
-                            <p>
-                                Le meilleur moyen de réussir, c’est toujours d’essayer encore une fois.<br>
-                                ~Thomas Edison
-                            </p>
-                            <div class="social">
-                                <a href=""><i class="icofont-contact-add"></i></a>
-
                             </div>
                         </div>
                     </div>

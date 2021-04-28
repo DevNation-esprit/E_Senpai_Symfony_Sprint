@@ -272,6 +272,10 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-block;
 }
 
+
+
+
+
 .get-started-btn:hover {
   background: #8A2C02;
   color: #fff;
@@ -1630,4 +1634,16 @@ cursor: pointer;
 
   line-height: 1.4em;
 
+}
+
+.get-buton-tab{
+  margin-left: 15px;
+  background: #D75404;
+  color: #fff;
+  border-radius: 30px;
+  padding: 5px 20px;
+  white-space: nowrap;
+  transition: 0.3s;
+  font-size: 10px;
+  display: inline-block;
 }

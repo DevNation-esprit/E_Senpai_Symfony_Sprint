@@ -17,6 +17,7 @@ class Abonnement
      * @var string
      *
      * @ORM\Column(name="date_abonnement", type="string", length=255, nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     *
      */
     private $dateAbonnement = 'CURRENT_TIMESTAMP';
 
@@ -42,7 +43,7 @@ class Abonnement
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="Formation")
+     * @ORM\ManyToOne(targetEntity="Formation")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_formation", referencedColumnName="id")
      * })

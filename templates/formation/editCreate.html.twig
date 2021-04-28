@@ -25,26 +25,32 @@
                     <div class="box featured">
                         <h3>Nom du slide</h3>
                         <table class="table" >
-
-
+                            <thead>
+                            <tr>
+                                <th>Nom du slide</th>
+                            </tr>
+                            </thead>
                             <tbody>
-                                <th align="left">Nom du slide</th>
+                            {% for slide in slides %}
+                                <tr>
+
+                                    {% if slide.textSlide is empty and slide.videoSlide is empty %}
+                                        <td>{{slide.imageSlide}}</td>
+
+                                    {% elseif slide.imageSlide is empty and slide.videoSlide is empty %}
+                                        <td>{{slide.textSlide}}</td>
+
+                                    {% else %}
+                                        <td>{{slide.videoSlide}}</td>
+
+                                    {% endif %}
+
+
+                                </tr>
+                            {% endfor %}
                             </tbody>
-
-                                <td align="left">{% for slide in slides %}
-                                        {% if slide.textSlide is empty and slide.videoSlide is empty %}
-                                        {{slide.imageSlide}}
-                                        <br> <br>
-                                        {% elseif slide.imageSlide is empty and slide.videoSlide is empty %}
-                                            {{slide.textSlide}}
-                                        {% else %}
-                                            {{slide.videoSlide}}
-                                        {% endif %}
-                                {% endfor %}
-                                </td>
-
-
                         </table>
+
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mt-4 mt-md-0">
@@ -59,7 +65,6 @@
         <br>
 
     </section><!-- End Pricing Section -->
-
 
 
 

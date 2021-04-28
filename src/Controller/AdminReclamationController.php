@@ -10,17 +10,25 @@ use App\Entity\Reclamation;
 use App\Entity\User;
 use App\Form\RepondreReclamationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Knp\Component\Pager\PaginatorInterface;
 
 class AdminReclamationController extends AbstractController
 {
     /**
      * @Route("/admin/reclamation", name="admin_reclamation")
      */
-    public function reclamation(): Response
+    public function reclamation(Request $request, PaginatorInterface $paginator): Response
     {
-        $reclamations = $this->getDoctrine()
+        $donnees = $this->getDoctrine()
         ->getRepository(Reclamation::class)
         ->findAll();
+
+        $reclamations = $paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1 ),
+            4
+        );
+
         return $this->render('admin_reclamation/admin_reclamation.html.twig',[
             'reclamations' => $reclamations
         ]);

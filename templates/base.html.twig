@@ -36,7 +36,7 @@
 </head>
 
 <body>
-
+{% block header %}
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
@@ -50,7 +50,12 @@
           <li><a href="/home">Accueil</a></li>
           <li><a href="/profil">Profil</a></li>
           <li><a href="">Formations</a></li>
-          <li><a href="">Discussions</a></li>
+          <li class="drop-down"><a href="/discussion">Discussions</a>
+            <ul>
+              <li><a href="/discussion">Discussions</a></li>
+              <li><a href="/msg">Messages</a></li>
+            </ul>
+          </li>
           <li><a href="">Blog</a></li>
           <li><a href="">Evenements</a></li>
           <li><a href="">Quizzes</a></li>
@@ -67,6 +72,7 @@
   </header>
   <!-- End Header -->
 
+{% endblock %}
 
 {% block body %}
 <h4>Error Loading Page</h4>

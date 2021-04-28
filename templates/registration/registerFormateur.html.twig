@@ -31,7 +31,7 @@
         <br>
         <a href="/login">S'authentifier</a><br>
         <img src="img/img-01.png" alt="IMG">
-        <a href="/register-formateur"><h5>Inscrire en tant que Formateur</h5></a>
+        <a href="/register"><h5>Inscrire en tant qu'Etudiant</h5></a>
     </div>
 
     {{ form_start(registrationForm, {'attr':{'class':"login100-form validate-form"}}) }}
@@ -44,6 +44,7 @@
             label: 'Password',
             'attr':{'class':'input100'}
         }) }}
+        {{ form_row(registrationForm.CurriculumVitae, {'attr':{'class':'input100'}}) }}
         {{ form_row(registrationForm.agreeTerms) }}
 
         <button type="submit" class="login100-form-btn">S'inscrire</button>

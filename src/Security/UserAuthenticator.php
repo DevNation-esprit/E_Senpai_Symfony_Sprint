@@ -94,7 +94,13 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
         }
         else{
-            return new RedirectResponse($this->urlGenerator->generate('home'));
+            if($token->getUser()->getStatus() == "Approuvé"){
+                return new RedirectResponse($this->urlGenerator->generate('home'));
+            }
+            else{
+                return new RedirectResponse($this->urlGenerator->generate('wait_approval'));
+            }
+            
         }
         
         

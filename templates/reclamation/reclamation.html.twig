@@ -8,31 +8,35 @@
     <br>
     <br>
     <h4>Vos réclamations</h4>
-    <br>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Statut</th>
-                <th>Sujet</th>
-                <th>Contenu</th>
-            </tr>
-        </thead>
-        <tbody>
+        <section id="why-us" class="why-us">
+        <div class="container" data-aos="fade-up">
+        <div class="col-lg-8 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+        <div class="icon-boxes d-flex flex-column justify-content-center">
+        <div class="row">
         {% for reclamation in reclamations %}
-            <tr>
-                <td>{{ reclamation.statut }}</td>
-                <td>{{ reclamation.sujet }}</td>
-                <td>{{ reclamation.contenu }}</td>
-            </tr>
+                <div class="col-xl-4 d-flex align-items-stretch">
+                  <div class="icon-box mt-4 mt-xl-0">
+                    <i class="bx bx-receipt"></i>
+                    <h4>{{ reclamation.sujet }}</h4>
+                    <p>{{ reclamation.contenu }}</p>
+                    <h5>{{ reclamation.statut }}</h5>
+                    <a href="{{ path('reclamation_print', {'id': reclamation.id}) }}">Imprimer</a>
+                  </div>
+                </div>
         {% else %}
-            <tr>
-                <td colspan="14">no records found</td>
-            </tr>
+            
         {% endfor %}
-        </tbody>
-    </table>
+        </div>
+        </div>
+        </div>
+        </div>
+         </section>
     <br>
     <a href="{{ path('add_reclamation', {'id': app.user.id}) }}" class="get-started-btn">Envoyer Réclamation</a>
     <br>
 
 {% endblock %}
+
+        
+                
+            

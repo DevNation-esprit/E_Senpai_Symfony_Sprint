@@ -37,7 +37,7 @@
                 
                 <td>{{ user.curriculumVitae }}</td>
                 <td>
-                    <a href=""><font color="blue">Voir CV</font></a>
+                    {% if not user.curriculumVitae is empty or user.curriculumVitae !="" %}<a href="{{ path('cv_formateur', {'id': user.id}) }}"  target="_blank"><font color="blue">Voir CV</font></a>{% endif %}
                     <a href="{{ path('approuver_formateur', {'id': user.id}) }}"><font color="blue">Approuver</font></a>
                 </td>
             </tr>

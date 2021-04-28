@@ -29,6 +29,10 @@
         {{ form_row(form.biography, {'attr':{'class':"form-control"}}) }}
         </div>
         <br>
+        <div class="col-md-6 form-group">
+        {{ form_row(form.photoProfil, {'attr':{'class':"form-control"}}) }}
+        </div>
+        <br>
         <button class="get-started-btn">{{ button_label|default('Modifier') }}</button>
     {{ form_end(form) }}
     <br>

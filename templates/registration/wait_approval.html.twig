@@ -27,26 +27,14 @@
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
     <div>
-        <h1>S'inscrire</h1>
+        <h1>Demande d'inscription soumis avec succés !</h1>
         <br>
-        <a href="/login">S'authentifier</a><br>
-        <img src="img/img-01.png" alt="IMG">
-        <a href="/register-formateur"><h5>Inscrire en tant que Formateur</h5></a>
+        <a href="/logout">Déconnecter</a><br>
+        <a href="/"><img src="img/img-01.png" alt="IMG"></a>
     </div>
 
-    {{ form_start(registrationForm, {'attr':{'class':"login100-form validate-form"}}) }}
-        {{ form_row(registrationForm.nom, {'attr':{'class':'input100'}}) }}
-        {{ form_row(registrationForm.prenom, {'attr':{'class':'input100'}}) }}
-        {{ form_row(registrationForm.sexe, {'attr':{'class':'input100'}}) }}
-        {{ form_row(registrationForm.dateNaissance) }}
-        {{ form_row(registrationForm.email, {'attr':{'class':'input100'}}) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password',
-            'attr':{'class':'input100'}
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="login100-form-btn">S'inscrire</button>
-    {{ form_end(registrationForm) }}
+    <p>
+        Votre demande d'inscription en tant que Formateur est en cours de traitement, vous serez notifier par Mail lorsque votre demande sera acceptée
+    </p>
 </div>
 {% endblock %}

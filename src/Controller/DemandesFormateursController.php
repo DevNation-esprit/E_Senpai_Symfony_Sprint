@@ -40,4 +40,14 @@ class DemandesFormateursController extends AbstractController
             'users' => $users
         ]);
     }
+
+    /**
+     * @Route("/demandes/formateurs/{id}/CurriculumVitae", name="cv_formateur")
+     */
+    public function consulterCV(User $user): Response
+    {
+        return $this->render('demandes_formateurs/showcv.html.twig',[
+            'user' => $user
+        ]);
+    }
 }

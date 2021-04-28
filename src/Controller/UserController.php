@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/user")
@@ -18,11 +19,17 @@ class UserController extends AbstractController
     /**
      * @Route("/", name="user_index", methods={"GET"})
      */
-    public function index(): Response
+    public function index(Request $request, PaginatorInterface $paginator): Response
     {
-        $users = $this->getDoctrine()
+        $donnees = $this->getDoctrine()
             ->getRepository(User::class)
             ->findAll();
+
+        $users = $paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1 ),
+            4
+        );
 
         return $this->render('user/index.html.twig', [
             'users' => $users,
@@ -39,6 +46,22 @@ class UserController extends AbstractController
         $form->handleRequest($requestUser);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UploadedFile $uploadedFile */
+            $uploadedFile = $form['photoProfil']->getData();
+            if($uploadedFile){
+                $destination = $this->getParameter('kernel.project_dir').'/public/img/formcontenu';
+                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(),PATHINFO_FILENAME);
+                #file name
+                $newFilename = $originalFilename.'.'.$uploadedFile->guessExtension();
+                $e=$uploadedFile->guessExtension();
+                $uploadedFile->move(
+                    $destination,
+                    $newFilename
+
+                );
+                $user->setPhotoProfil($newFilename);
+            }
+            
             $user->setRole("Admin");
             $user->setPassword(
                 $passwordEncoder->encodePassword(
@@ -80,6 +103,22 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UploadedFile $uploadedFile */
+            $uploadedFile = $form['photoProfil']->getData();
+            if($uploadedFile){
+                $destination = $this->getParameter('kernel.project_dir').'/public/img/formcontenu';
+                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(),PATHINFO_FILENAME);
+                #file name
+                $newFilename = $originalFilename.'.'.$uploadedFile->guessExtension();
+                $e=$uploadedFile->guessExtension();
+                $uploadedFile->move(
+                    $destination,
+                    $newFilename
+
+                );
+                $user->setPhotoProfil($newFilename);
+            }
+            
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('profil');

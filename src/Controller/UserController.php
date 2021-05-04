@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
+
 /**
  * @Route("/user")
  */
@@ -129,4 +130,6 @@ class UserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
 }

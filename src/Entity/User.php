@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * User
@@ -22,6 +23,7 @@ class User implements UserInterface
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("user")
      */
     private $id;
 
@@ -30,6 +32,7 @@ class User implements UserInterface
      *
      * @ORM\Column(name="nom", type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="Nom est requis")
+     * @Groups("user")
      */
     private $nom;
 
@@ -38,6 +41,7 @@ class User implements UserInterface
      *
      * @ORM\Column(name="prenom", type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="Prénom est requis")
+     * @Groups("user")
      */
     private $prenom;
 
@@ -46,6 +50,7 @@ class User implements UserInterface
      *
      * @ORM\Column(name="date_naissance", type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="DateNaissance est requis")
+     * @Groups("user")
      */
     private $dateNaissance;
 
@@ -53,6 +58,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="sexe", type="string", length=255, nullable=false)
+     * @Groups("user")
      */
     private $sexe;
 
@@ -62,6 +68,7 @@ class User implements UserInterface
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="E-mail est requis")
      * @Assert\Email(message="Cet E-mail n'est pas valide")
+     * @Groups("user")
      */
     private $email;
 
@@ -69,6 +76,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="role", type="string", length=255, nullable=false)
+     * @Groups("user")
      */
     private $role;
 
@@ -76,6 +84,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="login", type="string", length=255, nullable=false)
+     * @Groups("user")
      */
     private $login;
 
@@ -83,6 +92,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255, nullable=false)
+     * @Groups("user")
      */
     private $password;
 
@@ -90,6 +100,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=255, nullable=false)
+     * @Groups("user")
      */
     private $status;
 
@@ -97,6 +108,7 @@ class User implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="photo_profil", type="string", length=255, nullable=true)
+     * @Groups("user")
      */
     private $photoProfil;
 
@@ -104,6 +116,7 @@ class User implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="biography", type="string", length=255, nullable=true)
+     * @Groups("user")
      */
     private $biography;
 
@@ -111,6 +124,7 @@ class User implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="curriculum_vitae", type="string", length=255, nullable=true)
+     * @Groups("user")
      */
     private $curriculumVitae;
 
@@ -290,6 +304,11 @@ class User implements UserInterface
     {
     }
 
+
+    public function __toString() 
+{
+    return (string) $this->id; 
+}
 
 
 }

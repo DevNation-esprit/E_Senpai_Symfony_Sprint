@@ -131,6 +131,7 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 1px;
   text-transform: uppercase;
   font-family: "Poppins", sans-serif;
+  
 }
 
 #header .logo a {
@@ -271,6 +272,10 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 14px;
   display: inline-block;
 }
+
+
+
+
 
 .get-started-btn:hover {
   background: #8A2C02;
@@ -526,7 +531,7 @@ section {
 .breadcrumbs {
   margin-top: 73px;
   text-align: center;
-  background: #5fcf80;
+  background: #8A2C02;
   padding: 30px 0;
   color: #fff;
 }
@@ -730,10 +735,13 @@ section {
 .courses .course-item {
   border-radius: 5px;
   border: 1px solid #eef0ef;
+  margin-bottom: 20px;
+  height: 250px
 }
 
 .courses .course-content {
   padding: 15px;
+  padding-top: 15px;
 }
 
 .courses .course-content h3 {
@@ -751,8 +759,12 @@ section {
 }
 
 .courses .course-content p {
-  font-size: 14px;
-  color: #777777;
+  height: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
 }
 
 .courses .course-content h4 {
@@ -761,6 +773,7 @@ section {
   padding: 7px 14px;
   color: #fff;
   margin: 0;
+
 }
 
 .courses .course-content .price {
@@ -773,6 +786,8 @@ section {
 .courses .trainer {
   padding-top: 15px;
   border-top: 1px solid #eef0ef;
+
+
 }
 
 .courses .trainer .trainer-profile img {
@@ -800,8 +815,10 @@ section {
   margin-bottom: 20px;
   background: #fff;
   border: 1px solid #eef0ef;
-}
 
+}
+.trainers .member:hover{
+  transform: rotate(0) scale(1.1) translateZ(0);-webkit-filter: drop-shadow(0 20px 20px  rgba(0, 0, 0, 0.70));}
 .trainers .member img {
   margin: -1px -1px 30px -1px;
 }
@@ -1560,4 +1577,74 @@ section {
   background: #D75404;
   color: #fff;
   text-decoration: none;
+}
+
+.mytabs {
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 1700px;
+  margin: 50px auto;
+  padding: 25px;
+
+
+}
+.mytabs input[type="radio"] {
+  display: none;
+
+
+}
+.mytabs label {
+cursor: pointer;
+  border-radius: 25px;
+  color: #D75404;
+  margin-right: 10px;
+  border: 2px solid #D75404;
+  padding: 12px 15px 12px 0;
+  transition: 0.3s;
+
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.mytabs .tab {
+
+  width: 100%;
+  padding: 20px;
+  background: #fff;
+  order: 1;
+  display: none;
+}
+.mytabs .tab h2 {
+  font-size: 3em;
+}
+
+.mytabs input[type='radio']:checked + label + .tab {
+  display: block;
+}
+
+.mytabs input[type="radio"]:checked + label {
+  background: #fff;
+
+}
+.desc {
+  display: block;/* or inline-block */
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 3.6em;
+
+  line-height: 1.4em;
+
+}
+
+.get-buton-tab{
+  margin-left: 15px;
+  background: #D75404;
+  color: #fff;
+  border-radius: 30px;
+  padding: 5px 20px;
+  white-space: nowrap;
+  transition: 0.3s;
+  font-size: 10px;
+  display: inline-block;
 }

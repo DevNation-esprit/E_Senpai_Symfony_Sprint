@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
     <link rel="shortcut icon" type="image/x-icon" href={{ asset("img/icon.png")}}>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!-- CSS here -->
 	<link rel="stylesheet" href={{ asset("admin/css/bootstrap.min.css")}}>
 	<link rel="stylesheet" href={{ asset("admin/css/owl.carousel.min.css")}}>
@@ -24,6 +24,13 @@
 	<link rel="stylesheet" href={{ asset("admin/css/slick.css")}}>
 	<link rel="stylesheet" href={{ asset("admin/css/nice-select.css")}}>
 	<link rel="stylesheet" href={{ asset("admin/css/style.css")}}>
+
+    <style>
+    .question{
+      margin-left: 50px;
+      margin-top: 8px;
+    }
+    </style>
 </head>
 <body>
     <!-- ? Preloader Start -->
@@ -64,14 +71,9 @@
                                                         <li><a href="/admin/reclamation">Réclamations</a></li>
                                                     </ul>
                                                 </li>
-                                                <li><a href="">Formations</a></li>
-                                                <li><a href="">Tests&Quizzes</a>
-                                                    <ul class="submenu">
-                                                        <li><a href="">Tests</a></li>
-                                                        <li><a href="">Quizzes</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="">Événements</a></li>
+                                                <li><a href="/formation/accueilFormAdmin">Formations</a></li>
+                                                <li><a href="/quiz_admin">Tests&Quizzes</a></li>
+                                                <li><a href="/afficher">Événements</a></li>
                                             </ul>
                                         </nav>
                                         

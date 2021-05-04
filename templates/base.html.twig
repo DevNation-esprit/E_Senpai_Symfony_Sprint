@@ -11,6 +11,7 @@
 
   <!-- Favicons -->
   <link href={{ asset("img/icon.png")}} rel="icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -26,7 +27,16 @@
 
   <!-- Template Main CSS File -->
   <link href={{ asset("css/style.css")}} rel="stylesheet">
-
+  <style>
+    .question{
+      margin-left: 50px;
+      margin-top: 8px;
+    }
+  </style>
+  <!-- mercuryseriesflashy bundle Files -->
+  <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+  <script src="//code.jquery.com/jquery.js"></script>
+  <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
   <!-- =======================================================
   * Template Name: Mentor - v2.2.1
   * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
@@ -41,24 +51,38 @@
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-      <h4 class="logo mr-auto"><a href="/">E-Senpai</a></h4>
+      <h4 class="logo mr-auto"><a href="/home">E-Senpai</a></h4>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       {% if app.user %}
-      <nav class="nav-menu d-none d-lg-block">
+      <nav class="nav-menu d-none d-lg-block" style="margin-right: -20px">
         <ul>
           <li><a href="/home">Accueil</a></li>
           <li><a href="/profil">Profil</a></li>
-          <li><a href="">Formations</a></li>
+          {% if app.user.role == 'Formateur' %}
+          <li><a href="/formation/accueilForm">Formations</a></li>
+            {% else %}
+              <li><a href="/formation/accueilFormEtudiant">Formations</a></li>
+          {% endif %}
           <li class="drop-down"><a href="/discussion">Discussions</a>
             <ul>
               <li><a href="/discussion">Discussions</a></li>
               <li><a href="/msg">Messages</a></li>
             </ul>
           </li>
-          <li><a href="">Blog</a></li>
-          <li><a href="">Evenements</a></li>
-          <li><a href="">Quizzes</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/parti">Evenements</a></li>
+          <li class="drop-down"><a href="/discussion">Quiz&Test</a>
+            <ul>
+              {% if (app.user.role | lower) == "formateur" %}
+                <li><a href="/quiz/{{ app.user.id }}">Quiz</a></li>
+                <li><a href="/test/{{ app.user.id }}">Test</a></li>
+                {% elseif (app.user.role | lower) == "etudiant" %}
+                  <li><a href="/quiz_front">Quiz</a></li>
+                  <li><a href="/quiz_front">Test</a></li>
+                {% endif %}
+            </ul>
+          </li>
           <li><a href="{{ path('reclamation', {'id': app.user.id}) }}">Réclamations</a></li>
 
         </ul>
@@ -71,14 +95,14 @@
     </div>
   </header>
   <!-- End Header -->
-
+  {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
 {% endblock %}
 
 {% block body %}
 <h4>Error Loading Page</h4>
 {% endblock %}
 
-
+  {{include('chat_bot/homepage.html.twig')}}
   <!-- ======= Footer ======= -->
   <footer id="footer">
 

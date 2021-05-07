@@ -13,7 +13,7 @@ class AddReclamationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('sujet', ChoiceType::class, array(
+            ->add('sujetReclamation', ChoiceType::class, array(
                 'label'=>'',
                 'choices' => [
                     'Technique' => 'Technique',

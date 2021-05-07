@@ -44,7 +44,7 @@ class AdminReclamationController extends AbstractController
         $form->handleRequest($request);
         $receiver = $this->getDoctrine()
         ->getRepository(User::class)
-        ->findBy(array('id' => $reclamation->getIdUser()->getId()));
+        ->findBy(array('id' => $reclamation->getIdUserRec()->getId()));
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -57,7 +57,7 @@ class AdminReclamationController extends AbstractController
             
             $mailer->send($message);
 
-            $reclamation->setStatut("Résolue");
+            $reclamation->setStatut("Resolue");
             $reclamation->setAdminTrait($user->getId());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($reclamation);

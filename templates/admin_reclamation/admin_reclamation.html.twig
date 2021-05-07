@@ -22,11 +22,11 @@
         {% for reclamation in reclamations %}
             <tr>
                 <td>{{ reclamation.statut }}</td>
-                <td>{{ reclamation.sujet }}</td>
-                {% if reclamation.IdAdmin == 0 %}
+                <td>{{ reclamation.sujetReclamation }}</td>
+                {% if reclamation.AdminTrait == 0 %}
                 <td>-</td>
                 {% else %}
-                <td>{{ reclamation.IdAdmin }}</td>
+                <td>{{ reclamation.AdminTrait }}</td>
                 {% endif %}
                 <td>{{ reclamation.contenu }}</td>
                 {% if reclamation.statut == "En attente" %}

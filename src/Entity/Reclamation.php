@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Reclamation
@@ -19,6 +20,7 @@ class Reclamation
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("reclamation")
      */
     private $id;
 
@@ -26,6 +28,7 @@ class Reclamation
      * @var string
      *
      * @ORM\Column(name="statut", type="string", length=255, nullable=false)
+     * @Groups("reclamation")
      */
     private $statut;
 
@@ -33,6 +36,7 @@ class Reclamation
      * @var string
      *
      * @ORM\Column(name="sujet_reclamation", type="string", length=255, nullable=false)
+     * @Groups("reclamation")
      */
     private $sujetReclamation;
 
@@ -40,6 +44,7 @@ class Reclamation
      * @var int
      *
      * @ORM\Column(name="admin_trait", type="integer", nullable=false)
+     * @Groups("reclamation")
      */
     private $adminTrait;
 
@@ -48,6 +53,7 @@ class Reclamation
      *
      * @ORM\Column(name="contenu", type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="Contenu est requis")
+     * @Groups("reclamation")
      */
     private $contenu;
 
@@ -58,6 +64,7 @@ class Reclamation
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user_rec", referencedColumnName="id")
      * })
+     * @Groups("reclamation")
      */
     private $idUserRec;
 
@@ -72,12 +79,12 @@ class Reclamation
         return $this->statut;
     }
 
-    public function getSujet(): ?string
+    public function getSujetReclamation(): ?string
     {
         return $this->sujetReclamation;
     }
 
-    public function getIdAdmin(): ?int
+    public function getAdminTrait(): ?int
     {
         return $this->adminTrait;
     }
@@ -87,7 +94,7 @@ class Reclamation
         return $this->contenu;
     }
 
-    public function getIdUser(): ?User
+    public function getIdUserRec(): ?User
     {
         return $this->idUserRec;
     }

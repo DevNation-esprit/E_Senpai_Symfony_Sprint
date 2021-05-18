@@ -319,7 +319,7 @@ class FormationController extends AbstractController
             $uploadedFile = $form1['imageFile']->getData();
 
             if( $uploadedFile){
-                $destination = $this->getParameter('kernel.project_dir').'/public/img/formcontenu';
+                $destination = $this->getParameter('kernel.project_dir').'/../img';
                 $originalFilename = pathinfo($uploadedFile->getClientOriginalName(),PATHINFO_FILENAME);
                 #file name
                 $newFilename = $originalFilename.'.'.$uploadedFile->guessExtension();
@@ -389,7 +389,7 @@ class FormationController extends AbstractController
             $uploadedFile = $form1['imageFile']->getData();
 
             if( $uploadedFile){
-                $destination = $this->getParameter('kernel.project_dir').'/public/img/formcontenu';
+                $destination = $this->getParameter('kernel.project_dir').'/../img';
                 $originalFilename = pathinfo($uploadedFile->getClientOriginalName(),PATHINFO_FILENAME);
                 #file name
                 $newFilename = $originalFilename.'.'.$uploadedFile->guessExtension();

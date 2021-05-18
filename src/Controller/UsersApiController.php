@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
@@ -17,56 +18,68 @@ class UsersApiController extends AbstractController
     /**
      * @Route("/users_api", name="users_api")
      */
-    public function getUsers(SerializerInterface $serializer): Response
+    public function getUsers(NormalizerInterface $normalizer): Response
     {
         $donnees = $this->getDoctrine()
             ->getRepository(User::class)
             ->findAll();
-        $json = $serializer->serialize($donnees,'json',['groups'=>'user']);
+        $json = $normalizer->normalize($donnees,'json',['groups'=>'user']);
         return new JsonResponse($json, 200);
     }
 
     /**
+     * @Route("/users_api_by_email", name="users_api_by_id")
+     */
+    public function getUserById(NormalizerInterface $normalizer, Request $request): Response
+    {
+        $emailSent=$request->query->get('email');
+        $donnees = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findBy(array('email' => $emailSent));
+        foreach($donnees as $user){
+            $id = $user->getId();
+        }
+        return new JsonResponse($id, 200);
+    }
+
+    
+    /**
      * @Route("/users_api_add", name="users_api_add")
      */
-    public function addUser(Request $request, SerializerInterface $serializer, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function addUser(Request $request, NormalizerInterface $normalizer, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $content=$request->getContent();
-        $data=$serializer->deserialize($content,User::class,'json');
-        if($data instanceof \App\Entity\User){
-            $data->setPassword($passwordEncoder->encodePassword(
-                $data,
-                $data->getPassword()
-            ));
-            $em->persist($data);
-            $em->flush();
-            $users = $this->getDoctrine()
-                ->getRepository(User::class)
-                ->findBy(array('email' => $data->getEmail()));
-            
-                foreach($users as $user){
-                    $id = $user->getId();
-                }
-            return new JsonResponse('ID : '.$id, 200);
-        }
-        else{
-            return new JsonResponse('Not Success', 200);
-        }
-       
+        $em=$this->getDoctrine()->getManager();
+        $user = new User();
+        $user->setNom($request->query->get('nom'));
+        $user->setPrenom($request->query->get('prenom'));
+        $user->setDateNaissance($request->query->get('date_naissance'));
+        $user->setSexe($request->query->get('sexe'));
+        $user->setEmail($request->query->get('email'));
+        $user->setRole($request->query->get('role'));
+        $user->setLogin($request->query->get('email'));
+        $user->setPassword($passwordEncoder->encodePassword(
+            $user,
+            $request->query->get('password')
+        ));
+        $user->setstatus($request->query->get('status'));
+        $user->setPhotoProfil($request->query->get('photoProfil'));
+        $user->setBiography($request->query->get('biography'));
+        $user->setCurriculumVitae($request->query->get('curriculumVitae'));
+
+        $em->persist($user);
+        $em->flush();
+
+        $json = $normalizer->normalize($user,'json',['groups'=>'user']);
+        return new JsonResponse($json);
     }
 
     /**
      * @Route("/user_auth", name="user_auth")
      */
-    public function authUser(Request $request, SerializerInterface $serializer, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function authUser(Request $request, NormalizerInterface $normalizer, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $content=$request->getContent();
-        $ch= substr($content,11);
-        $final=substr($ch,1,-4);
-        $pos=strpos($final,'"');
-
-        $emailSent=substr($final,0,$pos);
-        $passwordSent=substr($final,$pos+16,strlen($final));
+        $emailSent=$request->query->get('email');
+        $passwordSent=$request->query->get('password');
 
         $exist=false;
         $passTrue=false;
@@ -85,41 +98,34 @@ class UsersApiController extends AbstractController
         
         if($exist==true && $passTrue==true)
         {
-            $ok="ok";
+            $json = $normalizer->normalize($user,'json',['groups'=>'user']);
+            return new JsonResponse($json, 200);
         }
         else{
             $ok="not ok";
+            return new JsonResponse($ok, 200);
         }
-        
-        return new JsonResponse($ok, 200);
     }
 
     /**
      * @Route("/users_api_edit", name="users_api_edit")
      */
-    public function editUser(Request $request, SerializerInterface $serializer, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function editUser(Request $request, NormalizerInterface $normalizer, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $content=$request->getContent();
-        $data=$serializer->deserialize($content,User::class,'json');
-
-        $ch=substr($content,8);
-        $pos=strpos($ch,',');
-        $idSent=substr($ch,0,$pos);
-
-        if($data instanceof \App\Entity\User){
-            $conn=$em->getConnection();
-            $data->setPassword($passwordEncoder->encodePassword(
-                $data,
-                $data->getPassword()
-            ));
-            $sql='UPDATE User SET nom=:nom, prenom=:prenom, date_naissance=:date_naissance, sexe=:sexe, email=:email,login=:login, password=:password, photo_profil=:photo_profil, biography=:biography, curriculum_vitae=:cv WHERE id=:id';
-            $stmt = $conn->prepare($sql);
-            $stmt->execute(['nom' => $data->getNom(), 'prenom' => $data->getPrenom(),'date_naissance' => $data->getDateNaissance(),'sexe' => $data->getSexe(),'email' => $data->getEmail(),'login' => $data->getEmail(),'password' => $data->getPassword(),'photo_profil' => $data->getPhotoProfil(),'biography' => $data->getBiography(),'cv' => $data->getCurriculumVitae(),'id' => (int) $idSent]);
-            return new JsonResponse("Success", 200);
-        }
-        else{
-            return new JsonResponse('Not Success', 200);
-        }
-       
+        $user = new User();
+        $conn=$em->getConnection();
+        $sql='UPDATE User SET nom=:nom, prenom=:prenom, date_naissance=:date_naissance, sexe=:sexe, email=:email,login=:login, password=:password, photo_profil=:photo_profil, biography=:biography, curriculum_vitae=:cv WHERE id=:id';
+        $stmt = $conn->prepare($sql);
+        $pass=$passwordEncoder->encodePassword(
+            $user,
+            $request->query->get('password')
+        );
+        $stmt->execute(['nom' => $request->query->get('nom'), 'prenom' => $request->query->get('prenom'),'date_naissance' => $request->query->get('dateNaissance'),'sexe' => $request->query->get('sexe'),'email' => $request->query->get('email'),'login' => $request->query->get('email'),'password' => $pass,'photo_profil' => $request->query->get('photoProfil'),'biography' => $request->query->get('biography'),'cv' => $request->query->get('curriculumVitae'),'id' => $request->query->get('id')]);
+        $donnees = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->find($request->query->get('id'));
+        $json = $normalizer->normalize($donnees,'json',['groups'=>'user']);
+        return new JsonResponse($json, 200);
+        
     }
 }

@@ -50,7 +50,7 @@ class UserController extends AbstractController
             /** @var UploadedFile $uploadedFile */
             $uploadedFile = $form['photoProfil']->getData();
             if($uploadedFile){
-                $destination = $this->getParameter('kernel.project_dir').'/public/img/formcontenu';
+                $destination = $this->getParameter('kernel.project_dir').'/../img';
                 $originalFilename = pathinfo($uploadedFile->getClientOriginalName(),PATHINFO_FILENAME);
                 #file name
                 $newFilename = $originalFilename.'.'.$uploadedFile->guessExtension();
@@ -107,7 +107,7 @@ class UserController extends AbstractController
             /** @var UploadedFile $uploadedFile */
             $uploadedFile = $form['photoProfil']->getData();
             if($uploadedFile){
-                $destination = $this->getParameter('kernel.project_dir').'/public/img/formcontenu';
+                $destination = $this->getParameter('kernel.project_dir').'/../img';
                 $originalFilename = pathinfo($uploadedFile->getClientOriginalName(),PATHINFO_FILENAME);
                 #file name
                 $newFilename = $originalFilename.'.'.$uploadedFile->guessExtension();

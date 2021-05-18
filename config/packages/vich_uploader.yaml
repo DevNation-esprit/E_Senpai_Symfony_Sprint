@@ -2,8 +2,8 @@ vich_uploader:
     db_driver: orm
     mappings:
         property_image:
-            uri_prefix: img/formcontenu
-            upload_destination: '%kernel.project_dir%/public/img/formcontenu'
+            uri_prefix: img
+            upload_destination: '%kernel.project_dir%/../img'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
 
     #mappings:

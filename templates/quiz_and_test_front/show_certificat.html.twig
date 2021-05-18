@@ -6,9 +6,11 @@
     <div class="card img-fluid" style="">
         <img class="card-img-top" src="{{ asset('/img/certificat.jpg') }}" alt="Card image" style="width:100%">
         <div class="card-img-overlay">
-            <h4 class="card-title"></h4>
-            <p class="card-text"></p>
+            <h1 class="card-title text-center" style="margin-top: 270px">{{ app.user.prenom }}  {{ app.user.nom }}</h1>
+            <h4 class="card-text text-center" style="margin-top: 110px;color: #D75404;">{{ test.sujet }}</h4>
+            <h4 class="card-text text-right" style="margin-top: 95px;margin-right: 250px;">{{ test.idFormateur.nom }}  {{ test.idFormateur.prenom }}</h4>
         </div>
     </div>
-    <h1 class="text-center" style="margin-top: 15px;"><a href="{{ path('download',{'id':test.id}) }}">Télécharger</a></h1>
+    <h1 class="text-center" style="margin-top: 15px;"><a target="_blank" href="{{ path('download',{'id':test.id}) }}">Télécharger</a></h1>
 {% endblock %}
+

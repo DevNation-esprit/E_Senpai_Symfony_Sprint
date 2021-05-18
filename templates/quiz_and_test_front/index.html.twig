@@ -15,51 +15,55 @@
     </form>
 
     {% for test in listTest %}
-        <div style="margin-bottom: 15px;" id="accordion">
-            <div class="card">
-                <div class="card-header">
-                    <a class="card-link" data-toggle="collapse" href="#demo">
-                        Test : {{ test.sujet }}
-                    </a>
-                </div>
-                <div id="demo" class="collapse hide" data-parent="#accordion">
-                    <div class="card-body">
-                        <span>Formation : </span> <span class="font-weight-bold">{{ test.idFormation.titre }}</span> <br>
-                        <span>Duree : </span> <span class="font-weight-bold">{{ test.duree}} min(s)</span> <br>
-                        <span>Nombre de Questions : </span><span class="font-weight-bold" > {{ test.questions|length }}</span>
-                        <p class="text-right font-weight-bold">Posted by {{ [test.idFormateur.nom, '  ',test.idFormateur.prenom] | join }}</p>
-                        <span>NB : Les certificats ne sont delivrés que si vous obtenez un pourcentage de minimum 70% </span>
-                        <div class="form-group">
-                            <form action="{{ path('take_test',{'id':test.id}) }}" method="post">
-                                <input type="text" name="user" value="{{ app.user.id }}" hidden>
-                                <button style="width: 25%;margin: auto" class="btn btn-dark btn-block">Passer</button>
-                            </form>
+        {% if test.questions|length > 0 %}
+            <div style="margin-bottom: 15px;" id="accordion">
+                <div class="card">
+                    <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#demo">
+                            Test : {{ test.sujet }}
+                        </a>
+                    </div>
+                    <div id="demo" class="collapse hide" data-parent="#accordion">
+                        <div class="card-body">
+                            <span>Formation : </span> <span class="font-weight-bold">{{ test.idFormation.titre }}</span> <br>
+                            <span>Duree : </span> <span class="font-weight-bold">{{ test.duree}} min(s)</span> <br>
+                            <span>Nombre de Questions : </span><span class="font-weight-bold" > {{ test.questions|length }}</span>
+                            <p class="text-right font-weight-bold">Posted by {{ [test.idFormateur.nom, '  ',test.idFormateur.prenom] | join }}</p>
+                            <span>NB : Les certificats ne sont delivrés que si vous obtenez un pourcentage de minimum 70% </span>
+                            <div class="form-group">
+                                <form action="{{ path('take_test',{'id':test.id}) }}" method="post">
+                                    <input type="text" name="user" value="{{ app.user.id }}" hidden>
+                                    <button style="width: 25%;margin: auto" class="btn btn-dark btn-block">Passer</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     {% endfor %}
 
     {% for quiz in listQuiz %}
-        <div style="margin-bottom: 15px;" id="accordion">
-            <div class="card">
-                <div class="card-header">
-                    <a class="card-link" data-toggle="collapse" href="#quiz">
-                        Quiz : {{ quiz.sujet }}
-                    </a>
-                </div>
-                <div id="quiz" class="collapse hide" data-parent="#accordion">
-                    <div class="card-body">
-                        <span>Nombre de Questions : </span><span class="font-weight-bold" > {{ quiz.questions|length }}</span>
-                        <p class="text-right font-weight-bold">Posted by {{ [quiz.idFormateur.nom, '  ',quiz.idFormateur.prenom] | join }}</p>
-                        <div class="form-group">
-                            <a href="{{ path('take_quiz',{'id':quiz.id}) }}"> <button style="width: 25%;margin: auto" class="btn btn-dark btn-block">Passer</button></a>
+        {% if quiz.questions|length > 0 %}
+            <div style="margin-bottom: 15px;" id="accordion">
+                <div class="card">
+                    <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#quiz">
+                            Quiz : {{ quiz.sujet }}
+                        </a>
+                    </div>
+                    <div id="quiz" class="collapse hide" data-parent="#accordion">
+                        <div class="card-body">
+                            <span>Nombre de Questions : </span><span class="font-weight-bold" > {{ quiz.questions|length }}</span>
+                            <p class="text-right font-weight-bold">Posted by {{ [quiz.idFormateur.nom, '  ',quiz.idFormateur.prenom] | join }}</p>
+                            <div class="form-group">
+                                <a href="{{ path('take_quiz',{'id':quiz.id}) }}"> <button style="width: 25%;margin: auto" class="btn btn-dark btn-block">Passer</button></a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     {% endfor %}
 
 {% endblock %}

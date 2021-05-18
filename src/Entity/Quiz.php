@@ -48,6 +48,8 @@ class Quiz
      */
     private $questions;
 
+    private $slug = "" ;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
@@ -121,6 +123,18 @@ class Quiz
         }
 
         return $note ;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 
 }

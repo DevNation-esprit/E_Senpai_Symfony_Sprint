@@ -4,7 +4,6 @@
     <h1 style="margin-top: 150px"></h1>
     {{  include('quiz_and_test_front/show_timer.html.twig') }}
     <h1  class="text-center"> Quiz : {{ quiz.sujet }}</h1>
-
     <form action="{{ path('validate_quiz',{'id':quiz.id}) }}" method="post" id="formQuiz" >
         {% set i = 1 %}
         {% for question in quiz.questions %}

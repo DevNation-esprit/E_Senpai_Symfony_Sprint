@@ -134,7 +134,7 @@ class TestController extends AbstractController
         $datasets = [];
         foreach($note as $n){
             $labels[] = $n->getIdEtudiant()->getNom() .' '.$n->getIdEtudiant()->getPrenom() ;
-            $datasets[] = ($n->getNoteObtenue()/ $test->getTotalPoint())*100 ;
+            $datasets[] = round(($n->getNoteObtenue()/ $test->getTotalPoint())*100) ;
         }
 
         $chart = $chartBuilder->createChart(Chart::TYPE_BAR);
@@ -148,6 +148,14 @@ class TestController extends AbstractController
                     'data' => $datasets,
 
                 ]
+            ],
+        ]);
+
+        $chart->setOptions([
+            'scales' => [
+                'yAxes' => [
+                    ['ticks' => ['min' => 0, 'max' => 100]],
+                ],
             ],
         ]);
 

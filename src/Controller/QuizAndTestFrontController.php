@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,8 +16,6 @@ use App\Repository\QuizRepository;
 use App\Repository\TestRepository;
 use App\Entity\Note ;
 use App\Entity\User ;
-use Dompdf\Dompdf;
-use Dompdf\Options ;
 
 
 /**
@@ -69,14 +68,12 @@ class QuizAndTestFrontController extends AbstractController
         $note = $this->getDoctrine()->getRepository(Note::class)
             ->findBy(array('idEtudiant'=> $iduser,'idTest'=>$id)) ;
         if($note){
-            dump($note) ;
             foreach($note as $n)
             {
                 if((($n->getNoteObtenue()/$t->getTotalPoint())*100) >= 70)
                 {
-                    return $this->render('quiz_and_test_front/show_certificat.html.twig', [
-                        'test' => $t ,
-                    ]);
+                    return $this->redirectToRoute('certificat', ['id' => $id] );
+
                 }
                 else{
                     return $this->render('quiz_and_test_front/take_test.html.twig', [
@@ -234,48 +231,24 @@ class QuizAndTestFrontController extends AbstractController
     /**
      * @Route("/download/{id}", name="download", methods={"GET","POST"})
      */
-    public function downloadCertificate($id):Response
+    public function downloadCertificate($id, Pdf $knpSnappy):Response
     {
         $t =  $this->getDoctrine()->getRepository(Test::class)->find($id) ;
-        $pdfOptions = new Options();
-      //  $pdfOptions->set('defaultFont', 'Arial');
-        $pdfOptions->set('isRemoteEnabled', true);
-        $pdfOptions->set('isHtml5ParserEnabled' , true) ;
-
-        // Instantiate Dompdf with our options
-        $dompdf = new Dompdf($pdfOptions);
-        $contxt = stream_context_create([
-            'ssl' => [
-                'verify_peer' => FALSE,
-                'verify_peer_name' => FALSE,
-                'allow_self_signed'=> TRUE
-            ]
-        ]);
-
-        $dompdf->setHttpContext($contxt);
-
+        $this->knpSnappy = $knpSnappy;
         $html = $this->renderView('quiz_and_test_front/download.html.twig', [
             'test' => $t
         ]);
+        $filename = 'certificat';
 
-        // Load HTML to Dompdf
-        $dompdf->loadHtml($html);
-
-        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
-        $dompdf->setPaper('A4', 'portrait');
-
-        // Render the HTML as PDF
-        $dompdf->render();
-        ob_end_clean();
-       //
-        // Output the generated PDF to Browser (force download)
-        $dompdf->stream("mypdf.pdf", [
-            "Attachment" => true
-        ]);
-
-        return new Response('fichier temechager' ) ;
-       // $t =  $this->getDoctrine()->getRepository(Test::class)->find($id) ;
-       /* return $this->render('quiz_and_test_front/download.html.twig', [
+        return new Response(
+            $this->knpSnappy->getOutputFromHtml($html),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'inline; filename="'.$filename.'.pdf"'
+            )
+        );
+       /*return $this->render('quiz_and_test_front/download.html.twig', [
             'test' => $t ,
         ]);*/
     }

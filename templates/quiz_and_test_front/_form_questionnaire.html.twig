@@ -1,4 +1,8 @@
-<h3 style="margin-top: 15px">Q.{{ i }}/ {{ question.designation }}</h3>
+<div class="card" style="margin-top: 25px;">
+    <div class="card-header">
+        <h3 style="margin-top: 15px">Q.{{ i }}/ {{ question.designation }}   <small>{{ question.note }} point(s)</small></h3>
+    </div>
+    <div class="card-body">
 {% set val = random(0,3) %}
 {% if val == 0 %}
     <div class="question">
@@ -93,3 +97,5 @@
         </div>
     </div>
 {% endif %}
+    </div>
+</div>

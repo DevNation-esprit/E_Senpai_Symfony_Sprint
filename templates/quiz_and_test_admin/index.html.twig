@@ -1,20 +1,71 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin.html.twig' %}
 
-{% block title %}Hello QuizAndTestAdminController!{% endblock %}
+{% block title %}Quiz and Test {% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="container">
+    <table class="table table-striped text-center" >
+        <thead>
+        <tr>
+            <th colspan="5" class="text-center"><h1 >Quiz </h1></th>
+        </tr>
+        <tr>
+            <th>Sujet</th>
+            <th>Formateur</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for quiz in quizzes %}
+            <tr>
+                <td>{{ quiz.sujet }}</td>
+                <td>{{ quiz.idFormateur.prenom|upper }}  {{ quiz.idFormateur.prenom|upper }}</td>
+                <td>
+                    <a href="/quiz_admin/showQuiz/{{ quiz.id }}"><i style="font-size:24px;color: #072366;" class="fa fa-eye" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'E:/3A18/Semestre 2/Technologies web 2.0/PIDEV/E_Senpai_Symfony_Sprint/src/Controller/QuizAndTestAdminController.php'|file_link(0) }}">src/Controller/QuizAndTestAdminController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'E:/3A18/Semestre 2/Technologies web 2.0/PIDEV/E_Senpai_Symfony_Sprint/templates/quiz_and_test_admin/index.html.twig'|file_link(0) }}">templates/quiz_and_test_admin/index.html.twig</a></code></li>
-    </ul>
+    <table class="table table-striped text-center" style="margin-top: 75px;">
+        <thead>
+        <tr>
+            <th colspan="6" class="text-center"><h1 >Test</h1></th>
+        </tr>
+        <tr>
+            <th>Sujet</th>
+            <th>Formateur</th>
+            <th>NbEtudiantPasses</th>
+            <th>NbEtudiantsAdmis</th>
+            <th>Duree</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for test in tests %}
+            <tr>
+                <td>{{ test.sujet }}</td>
+                <td>{{ test.idFormateur.prenom|upper }}  {{ test.idFormateur.nom|upper }}</td>
+                <td>{{ test.nbEtudiantPasses }}</td>
+                <td>{{ test.nbEtudiantsAdmis }}</td>
+                <td>{{ test.duree }} min(s)</td>
+                <td>
+                    <a href="/quiz_admin/showTest/{{ test.id }}"><i style="font-size:24px;color: #072366;" class="fa fa-eye" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}
+
+

@@ -29,7 +29,7 @@
                 {% else %}
                     <td>Echoué</td>
                 {% endif %}
-                <td>{{ (note.noteObtenue/percent)*100 }} %</td>
+                <td>{{ ((note.noteObtenue/percent)*100) | round }} %</td>
             </tr>
         {% else %}
             <tr>

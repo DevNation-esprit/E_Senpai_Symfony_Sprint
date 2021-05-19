@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
 /**
  * @Route("/post")
  */
@@ -94,4 +96,66 @@ class PostController extends AbstractController
 
         return $this->redirectToRoute('post_index');
     }
+
+    /**
+     * @Route ("/Postshow")
+     */
+    public function AllPosts(NormalizerInterface $Normalizer): Response
+    {
+        $repository = $this->getDoctrine()->getRepository(Post::class);
+        $Post=$repository->findAll();
+        $jsonContent = $Normalizer->normalize($Post, 'json');
+        return new Response(json_encode($jsonContent));
+    }
+
+    /**
+     * @Route ("/addResJSON/new" , name="addResJSON")
+     */
+    public function addResJSON(Request $request , NormalizerInterface $Normalizer) {
+        $em = $this -> getDoctrine() -> getManager();
+        $Post = new Post();
+
+        $Post -> setCaption($request -> get('caption'));
+
+
+
+        $em -> persist($Post);
+        $em -> flush();
+        $jsonContent = $Normalizer -> normalize($Post, 'json');
+        return new Response(json_encode($jsonContent));
+    }
+
+
+
+
+    /**
+     * @Route("/suppPost/{id}" )
+     */
+    public function deleteBlog (Request $request , NormalizerInterface $normalizer,$id){
+        $em = $this->getDoctrine()->getManager();
+        $Post = $em->getRepository(Post::class)->find($id);
+        $em ->remove($Post);
+        $em->flush();
+        $jsonContent = $normalizer->normalize($Post,'json ');
+        return new Response("Post supprimé ".json_encode($jsonContent));
+
+    }
+
+    /**
+     * @Route("/editBlog/{id}" , name="edit")
+     */
+    public function editBlog (Request $request , NormalizerInterface $normalizer,$id){
+        $em = $this->getDoctrine()->getManager();
+        $Post = $em->getRepository(Post::class)->find($id);
+
+        $Post -> setCaption($request -> get('caption'));
+
+
+
+        $em->flush();
+        $jsonContent = $normalizer->normalize($Post,'json ');
+        return new Response("Post modifié ".json_encode($jsonContent));
+
+    }
+
 }

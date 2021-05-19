@@ -9,12 +9,34 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @Route("/blog")
  */
 class BlogController extends AbstractController
 {
+
+    /**
+     * @Route("/addBlog/new" )
+     */
+    public function addBlog(Request $request , NormalizerInterface $normalizer){
+        $em = $this->getDoctrine()->getManager();
+        $Blog = new Blog();
+
+        $Blog -> setTitre($request -> get('titre'));
+        $Blog -> setContenu($request -> get('contenu'));
+
+
+        $em->persist($Blog);
+        $em->flush();
+        $jsonContent = $normalizer->normalize($Blog,'json ');
+        return new Response("Blog ajouté".json_encode($jsonContent));
+
+    }
+
     /**
      * @Route("/", name="blog_index", methods={"GET"})
      */
@@ -24,6 +46,17 @@ class BlogController extends AbstractController
             'blogs' => $blogRepository->findAll(),
         ]);
     }
+
+    /**
+     * @Route ("/Blogshow")
+     */
+    public function AllBlogs(NormalizerInterface $Normalizer){
+        $repository = $this->getDoctrine()->getRepository(Blog::class);
+        $Blog=$repository->findAll();
+        $jsonContent = $Normalizer->normalize($Blog, 'json');
+        return new Response(json_encode($jsonContent));
+    }
+
 
     /**
      * @Route("/new", name="blog_new", methods={"GET","POST"})
@@ -95,4 +128,84 @@ class BlogController extends AbstractController
 
         return $this->redirectToRoute('blog_index');
     }
+
+
+    /**
+     * @Route ("/addResJSON/new" , name="addResJSON")
+     */
+    public function addResJSON(Request $request , NormalizerInterface $Normalizer) {
+        $em = $this -> getDoctrine() -> getManager();
+        $Blog = new Blog();
+
+        $Blog -> setTitre($request -> get('titre'));
+        $Blog -> setContenu($request -> get('contenu'));
+
+
+        $em -> persist($Blog);
+        $em -> flush();
+        $jsonContent = $Normalizer -> normalize($Blog, 'json');
+        return new Response(json_encode($jsonContent));
+    }
+
+    /**
+     * @Route("/addnewBlog/new" , name="add")
+     */
+    public function addnewBlog(Request $request , NormalizerInterface $normalizer): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $Blog = new Blog();
+
+        $Blog -> setTitre($request -> get('titre'));
+        $Blog -> setContenu($request -> get('contenu'));
+
+
+        $em->persist($Blog);
+        $em->flush();
+        $jsonContent = $normalizer->normalize($Blog,'json ');
+        return new Response("Blog ajouté".json_encode($jsonContent));
+
+    }
+
+    /**
+     * @Route ("/Blogshow")
+     */
+    public function AllPosts(NormalizerInterface $Normalizer): Response
+    {
+        $repository = $this->getDoctrine()->getRepository(Blog::class);
+        $Blog=$repository->findAll();
+        $jsonContent = $Normalizer->normalize($Blog, 'json');
+        return new Response(json_encode($jsonContent));
+    }
+
+    /**
+     * @Route("/suppBlog/{id}")
+     */
+    public function deleteBlog (Request $request , NormalizerInterface $normalizer,$id){
+        $em = $this->getDoctrine()->getManager();
+        $Blog = $em->getRepository(Blog::class)->find($id);
+        $em ->remove($Blog);
+        $em->flush();
+        $jsonContent = $normalizer->normalize($Blog,'json ');
+        return new Response("Blog supprimé ".json_encode($jsonContent));
+
+    }
+
+
+    /**
+     * @Route("/editBlog/{id}" , name="edit")
+     */
+    public function editBlog (Request $request , NormalizerInterface $normalizer,$id){
+        $em = $this->getDoctrine()->getManager();
+        $Blog = $em->getRepository(Blog::class)->find($id);
+
+        $Blog -> setTitre($request -> get('titre'));
+        $Blog -> setContenu($request -> get('contenu'));
+
+
+        $em->flush();
+        $jsonContent = $normalizer->normalize($Blog,'json ');
+        return new Response("Blog modifié ".json_encode($jsonContent));
+
+    }
+
 }

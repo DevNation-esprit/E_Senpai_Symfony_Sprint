@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Questiontest
@@ -20,6 +21,7 @@ class Questiontest
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("post:read")
      */
     private $id;
 
@@ -28,6 +30,7 @@ class Questiontest
      *
      * @ORM\Column(name="designation", type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="veuillez renseigner la question ")
+     * @Groups("post:read")
      */
     private $designation;
 
@@ -36,6 +39,7 @@ class Questiontest
      *
      * @ORM\Column(name="reponse_correcte", type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="veuillez renseigner la reponse correcte ")
+     * @Groups("post:read")
      */
     private $reponseCorrecte;
 
@@ -44,6 +48,7 @@ class Questiontest
      *
      * @ORM\Column(name="reponse_fausse1", type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="veuillez renseigner la proposition 1")
+     * @Groups("post:read")
      */
     private $reponseFausse1;
 
@@ -52,6 +57,7 @@ class Questiontest
      *
      * @ORM\Column(name="reponse_fausse2", type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="veuillez renseigner la proposition 2")
+     * @Groups("post:read")
      */
     private $reponseFausse2;
 
@@ -60,6 +66,7 @@ class Questiontest
      *
      * @ORM\Column(name="reponse_fausse3", type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="veuillez renseigner la proposition 3")
+     * @Groups("post:read")
      */
     private $reponseFausse3;
 
@@ -69,6 +76,7 @@ class Questiontest
      * @ORM\Column(name="note", type="integer", nullable=false)
      * @Assert\NotBlank(message="veuillez entrer le nbre de points pour la question")
      *@Assert\GreaterThan(value = -1,message = "point doit etre positif")
+     * @Groups("post:read")
      */
     private $note;
 
@@ -79,6 +87,7 @@ class Questiontest
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_test", referencedColumnName="id")
      * })
+     * @Groups("post:read")
      */
     private $idTest;
 

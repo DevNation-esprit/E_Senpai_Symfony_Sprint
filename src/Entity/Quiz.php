@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Quiz
@@ -22,6 +23,7 @@ class Quiz
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("post:read")
      */
     private $id;
 
@@ -30,6 +32,7 @@ class Quiz
      *
      * @ORM\Column(name="sujet", type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="veuillez renseigner le sujet du quiz")
+     * @Groups("post:read")
      */
     private $sujet;
 
@@ -40,6 +43,7 @@ class Quiz
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_formateur", referencedColumnName="id")
      * })
+     * @Groups("post:read")
      */
     private $idFormateur;
 
